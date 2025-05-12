@@ -1,0 +1,56 @@
+# macOS
+.DS_Store
+
+# Xcode
+build/
+DerivedData/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xcscmblueprint
+*.xcuserstate
+
+# SwiftPM
+/.build/
+/.swiftpm/
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Firebase
+**/GoogleService-Info.plist
+
+# Secrets / Config
+.env
+Secrets.plist
+
+# SwiftLint / Xcode cache
+.swiftlint.yml
+.xcconfig
+*.xccheckout
+
+# Crashlytics
+*.dSYM.zip
+*.dSYM
+
+# Fastlane (eğer kullanıyorsan)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Other
+*.log
+*.hmap
+*.ipa
+*.app
+*.mobileprovision
+*.xcarchive
