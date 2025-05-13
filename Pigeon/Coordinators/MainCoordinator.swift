@@ -20,6 +20,7 @@ class MainCoordinator: CoordinatorProtocol {
         homeVC.onLogout = { [weak self] in
             self?.onLogout?()
         }
+        
         navigationController.setViewControllers([homeVC], animated: true)
     }
 }

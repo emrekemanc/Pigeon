@@ -20,7 +20,7 @@ class AppCoordinator: CoordinatorProtocol {
 
     func start() {
         if Auth.auth().currentUser != nil {
-            showMainFlow()
+            showHomeFlow()
         } else {
             showAuthFlow()
         }
@@ -31,13 +31,13 @@ class AppCoordinator: CoordinatorProtocol {
         self.authCoordinator = coordinator
 
         coordinator.onFinish = { [weak self] in
-            self?.showMainFlow()
+            self?.showHomeFlow()
         }
 
         coordinator.start()
     }
 
-    func showMainFlow() {
+    func showHomeFlow() {
         let coordinator = MainCoordinator(navigationController: navigationController)
         self.mainCoordinator = coordinator
 
