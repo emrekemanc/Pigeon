@@ -14,8 +14,6 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
             self?.handleLogout()
         }
