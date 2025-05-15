@@ -1,25 +1,33 @@
-//
-//  AuthCoordinator.swift
-//  Pigeon
-//
-//  Created by Muhammet Emre Kemancı on 12.05.2025.
-//
 
 import UIKit
 
 class AuthCoordinator: CoordinatorProtocol {
     var navigationController: UINavigationController
-    var onFinish: (() -> Void)?
-
+    var onLoginSuccess: (() -> Void)?
+    private  let storyboard = UIStoryboard(name: "Auth", bundle: nil)
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
     func start() {
-        let loginVC = LoginViewController()
-        loginVC.onLoginSuccess = { [weak self] in
-            self?.onFinish?()
+        showLogin()
+    }
+    
+    func showLogin(){
+        let vc = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        vc.onRegister = {
+            self.showRegister()
         }
-        navigationController.setViewControllers([loginVC], animated: true)
+        vc.onLoginSuccess = {
+            self.onLoginSuccess?()
+        }
+        navigationController.setViewControllers([vc], animated: true)
+    }
+    func showRegister(){
+        let vc = storyboard.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
+        vc.onRegisterSuccess = {
+            self.showLogin()
+        }
+        navigationController.setViewControllers([vc], animated: true)
     }
 }
