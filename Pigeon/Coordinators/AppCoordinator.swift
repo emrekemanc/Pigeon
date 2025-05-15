@@ -1,50 +1,42 @@
-//
-//  AppCoordinator.swift
-//  Pigeon
-//
-//  Created by Muhammet Emre Kemancı on 3.05.2025.
-//
+
 
 import UIKit
 import FirebaseAuth
 
 class AppCoordinator: CoordinatorProtocol {
     var navigationController: UINavigationController
-
     var authCoordinator: AuthCoordinator?
-    var mainCoordinator: MainCoordinator?
+    var homeCoordinator: HomeCoordinator?
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
 
     func start() {
-        if Auth.auth().currentUser != nil {
-            showHomeFlow()
-        } else {
-            showAuthFlow()
+        if isUserLogin(){
+            showHome()
+        }else{
+            showAuth()
         }
     }
-
-    func showAuthFlow() {
-        let coordinator = AuthCoordinator(navigationController: navigationController)
-        self.authCoordinator = coordinator
-
-        coordinator.onFinish = { [weak self] in
-            self?.showHomeFlow()
+    
+    func showAuth(){
+        authCoordinator = AuthCoordinator(navigationController: navigationController)
+        authCoordinator?.onLoginSuccess = {
+            self.showHome()
         }
-
-        coordinator.start()
+        authCoordinator?.start()
+    }
+    func showHome(){
+        homeCoordinator = HomeCoordinator(navigationController: navigationController)
+        homeCoordinator?.onLogout = {
+            self.showAuth()
+        }
+        homeCoordinator?.start()
+    }
+   private func isUserLogin() -> Bool{
+        return Auth.auth().currentUser != nil
     }
 
-    func showHomeFlow() {
-        let coordinator = MainCoordinator(navigationController: navigationController)
-        self.mainCoordinator = coordinator
-
-        coordinator.onLogout = { [weak self] in
-            self?.showAuthFlow()
-        }
-
-        coordinator.start()
-    }
+ 
 }

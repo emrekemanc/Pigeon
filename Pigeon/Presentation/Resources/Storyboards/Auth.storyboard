@@ -11,54 +11,95 @@
         <!--Login View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="LoginViewController" customModule="Pigeon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="Y6W-OH-hqX" customClass="LoginViewController" customModule="Pigeon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8P-lD-TXB">
-                                <rect key="frame" x="16" y="118" width="103" height="48"/>
+                                <rect key="frame" x="16.000000000000007" y="118" width="102.66666666666669" height="48"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
                                 <color key="textColor" name="pigeonDark"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6c-JZ-Xv1" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
-                                <rect key="frame" x="46.666666666666657" y="266" width="300" height="70"/>
+                                <rect key="frame" x="15" y="266" width="363" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="VE1-bI-sRb"/>
-                                    <constraint firstAttribute="width" constant="300" id="bsV-r2-kqM"/>
+                                    <constraint firstAttribute="height" constant="60" id="BZd-bW-mMB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="mailViewer:" destination="Y6W-OH-hqX" eventType="editingDidEnd" id="5Th-VX-Ta5"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GZX-cN-wYw" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
-                                <rect key="frame" x="46.666666666666657" y="366" width="300" height="70"/>
+                                <rect key="frame" x="15" y="376" width="363" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="cUn-qU-4yt"/>
-                                    <constraint firstAttribute="height" constant="70" id="m9h-Es-FKL"/>
+                                    <constraint firstAttribute="height" constant="60" id="Mi8-Id-9tT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vQ-Ep-ERm" customClass="CustomButton" customModule="Pigeon" customModuleProvider="target">
-                                <rect key="frame" x="164" y="515" width="66" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="pigeonPrimary"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgb-AW-vNf">
+                                <rect key="frame" x="27" y="732" width="339" height="32"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you don't have an account, you can " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlL-k6-uOF">
+                                        <rect key="frame" x="0.0" y="0.0" width="259" height="32"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNA-RW-6PL">
+                                        <rect key="frame" x="259" y="0.0" width="80" height="32"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Sign up.">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="signUpPress:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Z4r-hq-1Mu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vQ-Ep-ERm" customClass="CustomButton" customModule="Pigeon" customModuleProvider="target">
+                                <rect key="frame" x="60" y="672" width="273" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="IMW-u0-G8m"/>
+                                </constraints>
+                                <color key="tintColor" name="pigeonDark"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Login"/>
+                                <connections>
+                                    <action selector="loginButtonPress:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="hfy-xM-fVL"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="pigeonBackground"/>
                         <constraints>
+                            <constraint firstItem="8vQ-Ep-ERm" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BcA-nU-RV8"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="GZX-cN-wYw" secondAttribute="trailing" constant="15" id="D4A-iU-ANM"/>
                             <constraint firstItem="v8P-lD-TXB" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leadingMargin" id="KMD-8K-2BK"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="h6c-JZ-Xv1" secondAttribute="trailing" constant="15" id="LcR-Ob-hip"/>
                             <constraint firstItem="v8P-lD-TXB" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="ToB-A4-Nds"/>
+                            <constraint firstItem="8vQ-Ep-ERm" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="60" id="VfL-DO-7Yd"/>
+                            <constraint firstItem="GZX-cN-wYw" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="Wog-79-laZ"/>
+                            <constraint firstItem="fgb-AW-vNf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="afC-WB-BFi"/>
                             <constraint firstItem="GZX-cN-wYw" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="b4t-c1-utf"/>
+                            <constraint firstItem="h6c-JZ-Xv1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="ghQ-vU-cER"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8vQ-Ep-ERm" secondAttribute="trailing" constant="60" id="mC3-gS-oQ1"/>
                             <constraint firstItem="h6c-JZ-Xv1" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="n9O-od-HFV"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="fgb-AW-vNf" secondAttribute="bottom" constant="20" id="oPw-FD-N7x"/>
                             <constraint firstItem="h6c-JZ-Xv1" firstAttribute="top" secondItem="v8P-lD-TXB" secondAttribute="bottom" constant="100" id="rSi-GY-zXU"/>
-                            <constraint firstItem="GZX-cN-wYw" firstAttribute="top" secondItem="h6c-JZ-Xv1" secondAttribute="bottom" constant="30" id="thD-hg-ufa"/>
+                            <constraint firstItem="GZX-cN-wYw" firstAttribute="top" secondItem="h6c-JZ-Xv1" secondAttribute="bottom" constant="50" id="thD-hg-ufa"/>
+                            <constraint firstItem="fgb-AW-vNf" firstAttribute="top" secondItem="8vQ-Ep-ERm" secondAttribute="bottom" constant="20" id="thm-qA-CRG"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mailTextField" destination="h6c-JZ-Xv1" id="NvH-xz-YC1"/>
+                        <outlet property="passwordTextField" destination="GZX-cN-wYw" id="Ono-RP-Dad"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -67,7 +108,7 @@
         <!--Register View Controller-->
         <scene sceneID="6QM-zb-V5t">
             <objects>
-                <viewController id="j4A-tZ-ub5" customClass="RegisterViewController" customModule="Pigeon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterViewController" id="j4A-tZ-ub5" customClass="RegisterViewController" customModule="Pigeon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WuX-Me-A4y">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -95,9 +136,6 @@
         </namedColor>
         <namedColor name="pigeonDark">
             <color red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="pigeonPrimary">
-            <color red="0.63921568627450975" green="0.76470588235294112" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

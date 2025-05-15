@@ -11,7 +11,9 @@ enum AuthError: Error {
     case wrongPassword
     case userNotFound
     case emailAlreadyInUse
+    case emailEmpty
     case weakPassword
+    case passwordEmpty
     case userDisabled
     case missingEmail
     case unknown
@@ -60,6 +62,10 @@ enum AuthError: Error {
             return "Email address is missing."
         case .unknown:
             return "An unknown error occurred. Please try again."
+        case .emailEmpty:
+            return "Your email address cannot be empty. Please enter your email address."
+        case .passwordEmpty:
+            return "Your password cannot be empty. Please enter your password."
         }
     }
 }
