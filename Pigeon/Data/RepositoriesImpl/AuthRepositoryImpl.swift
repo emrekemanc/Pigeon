@@ -14,7 +14,7 @@ final class AuthRepositoryImpl: AuthRepository{
         authService.login(authCredentials: authCredentials, completion: completion)
     }
     
-    func register(authCredentials: AuthCredentials, completion: @escaping (Result<String?, any Error>) -> Void) {
+    func register(authCredentials: AuthCredentials, completion: @escaping (Result<String, any Error>) -> Void) {
         authService.register(authCredentials: authCredentials, completion: completion)
     }
     

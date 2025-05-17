@@ -11,22 +11,33 @@ enum UserError: Error {
     case decodingError
     case firestoreError(Error)
     case unknownError
-    case fullnameEmpity
-    
+    case fullnameEmpty
+
+    var code: String {
+        switch self {
+        case .userNotFound: return "USER_NOT_FOUND"
+        case .invalidUserId: return "INVALID_USER_ID"
+        case .decodingError: return "DECODING_ERROR"
+        case .firestoreError: return "FIRESTORE_ERROR"
+        case .unknownError: return "UNKNOWN_ERROR"
+        case .fullnameEmpty: return "FULLNAME_EMPTY"
+        }
+    }
+
     var localizedDescription: String {
         switch self {
         case .userNotFound:
-            return "User not found."
+            return "The user does not exist in the database."
         case .invalidUserId:
-            return "Invalid user ID."
+            return "The provided user ID is invalid."
         case .decodingError:
             return "Failed to decode user data."
         case .firestoreError(let error):
             return error.localizedDescription
-        case .fullnameEmpity:
-            return "Your name and surname cannot be blank. Please enter your name and surname."
         case .unknownError:
-            return "An unknown error occurred."
+            return "An unknown error occurred while handling the user."
+        case .fullnameEmpty:
+            return "Name and surname cannot be left empty."
         }
     }
 }
