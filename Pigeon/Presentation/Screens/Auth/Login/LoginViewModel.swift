@@ -7,10 +7,6 @@ final class LoginViewModel{
     
     private let loginUseCase = LoginUserUseCases(repository: AuthRepositoryImpl())
     func login(with authCredentials: AuthCredentials){
-        if let validationError = authCredentials.validationError{
-            onError?(AppError.auth(validationError))
-        }
-        
         loginUseCase.execute(authCredentials: authCredentials) { [weak self] result in
             DispatchQueue.main.async {
                 switch result{

@@ -6,7 +6,7 @@ import FirebaseAuth
 class AppCoordinator: CoordinatorProtocol {
     var navigationController: UINavigationController
     var authCoordinator: AuthCoordinator?
-    var homeCoordinator: HomeCoordinator?
+    var mainCoordinator: MainCoordinator?
 
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -14,7 +14,7 @@ class AppCoordinator: CoordinatorProtocol {
 
     func start() {
         if isUserLogin(){
-            showHome()
+            showMain()
         }else{
             showAuth()
         }
@@ -23,16 +23,16 @@ class AppCoordinator: CoordinatorProtocol {
     func showAuth(){
         authCoordinator = AuthCoordinator(navigationController: navigationController)
         authCoordinator?.onLoginSuccess = {
-            self.showHome()
+            self.showMain()
         }
         authCoordinator?.start()
     }
-    func showHome(){
-        homeCoordinator = HomeCoordinator(navigationController: navigationController)
-        homeCoordinator?.onLogout = {
+    func showMain(){
+        mainCoordinator = MainCoordinator(navigationController: navigationController)
+        mainCoordinator?.onLogout = {
             self.showAuth()
         }
-        homeCoordinator?.start()
+        mainCoordinator?.start()
     }
    private func isUserLogin() -> Bool{
         return Auth.auth().currentUser != nil

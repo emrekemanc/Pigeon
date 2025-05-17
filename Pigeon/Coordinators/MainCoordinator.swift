@@ -1,7 +1,7 @@
 
 import UIKit
 
-class HomeCoordinator: CoordinatorProtocol {
+class MainCoordinator: CoordinatorProtocol {
     var navigationController: UINavigationController
     var onLogout: (() -> Void)?
 
@@ -10,11 +10,9 @@ class HomeCoordinator: CoordinatorProtocol {
     }
 
     func start() {
-        let storyboard = UIStoryboard(name: "Home", bundle: nil)
-        let vc = storyboard.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
-        vc.onLogout = {
-            self.onLogout?()
-        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "MainViewController") as! MainViewController
         navigationController.setViewControllers([vc], animated: true)
     }
+    
 }
