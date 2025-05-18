@@ -4,6 +4,7 @@
 //
 //  Created by Muhammet Emre Kemancı on 3.05.2025.
 //
+
 import FirebaseAuth
 
 enum AuthError: Error {
@@ -44,28 +45,43 @@ enum AuthError: Error {
         }
     }
 
+    var code: String {
+        switch self {
+        case .invalidEmail: return "INVALID_EMAIL"
+        case .wrongPassword: return "WRONG_PASSWORD"
+        case .userNotFound: return "USER_NOT_FOUND"
+        case .emailAlreadyInUse: return "EMAIL_ALREADY_IN_USE"
+        case .emailEmpty: return "EMAIL_EMPTY"
+        case .weakPassword: return "WEAK_PASSWORD"
+        case .passwordEmpty: return "PASSWORD_EMPTY"
+        case .userDisabled: return "USER_DISABLED"
+        case .missingEmail: return "MISSING_EMAIL"
+        case .unknown: return "UNKNOWN"
+        }
+    }
+
     var localizedDescription: String {
         switch self {
         case .invalidEmail:
-            return "Please enter a valid email address."
+            return "The email address format is invalid."
         case .wrongPassword:
-            return "The password you entered is incorrect."
+            return "The password entered is incorrect."
         case .userNotFound:
-            return "No account found with this email address."
+            return "No user was found with this email."
         case .emailAlreadyInUse:
-            return "This email address is already in use."
+            return "This email is already associated with another account."
+        case .emailEmpty:
+            return "Email address cannot be empty."
         case .weakPassword:
-            return "Your password is too weak. Please choose a stronger one."
+            return "The password is too weak. Please choose a stronger password."
+        case .passwordEmpty:
+            return "Password cannot be empty."
         case .userDisabled:
             return "This user account has been disabled."
         case .missingEmail:
-            return "Email address is missing."
+            return "Email address is required."
         case .unknown:
-            return "An unknown error occurred. Please try again."
-        case .emailEmpty:
-            return "Your email address cannot be empty. Please enter your email address."
-        case .passwordEmpty:
-            return "Your password cannot be empty. Please enter your password."
+            return "An unknown authentication error occurred."
         }
     }
 }

@@ -89,4 +89,11 @@ class CustomButton: UIButton {
             }
         }
     }
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: .linear)
+        animation.duration = 0.4
+        animation.values = [-5, 5, -4, 4, -2, 2, 0]
+        layer.add(animation, forKey: "shake")
+    }
 }
