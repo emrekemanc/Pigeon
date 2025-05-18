@@ -34,6 +34,7 @@ class AppCoordinator: CoordinatorProtocol {
         }
         mainCoordinator?.start()
     }
+    
    private func isUserLogin() -> Bool{
         return Auth.auth().currentUser != nil
     }
