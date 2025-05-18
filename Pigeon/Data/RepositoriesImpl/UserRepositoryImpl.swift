@@ -23,8 +23,8 @@ class UserRepositoryImpl: UserRepository{
         userService.userUpdate(userCredentials: userCredentials, completion: completion)
     }
     
-    func userSearch(uid: String, completion: @escaping (Result<[UserCredentials], any Error>) -> Void) {
-        userService.userSearch(uid: uid, completion: completion)
+    func userSearch(mail: String, completion: @escaping (Result<[UserCredentials], any Error>) -> Void) {
+         userService.userSearch(mail: mail, completion: completion)
     }
     
     

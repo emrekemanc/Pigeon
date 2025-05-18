@@ -10,5 +10,5 @@ protocol UserRepository{
     func userFetch(uid: String, completion: @escaping(Result<UserCredentials,Error>) -> Void)
     func userDeleted(uid: String, completion: @escaping(Result<Bool,Error>) -> Void)
     func userUpdate(userCredentials: UserCredentials, completion: @escaping(Result<Bool,Error>) -> Void)
-    func userSearch(uid: String, completion: @escaping(Result<[UserCredentials],Error>) -> Void)
+    func userSearch(mail: String, completion: @escaping(Result<[UserCredentials],Error>) -> Void)
 }

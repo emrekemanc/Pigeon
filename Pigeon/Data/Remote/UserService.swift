@@ -83,24 +83,28 @@ class UserService {
         }
     }
     
-    
-    func userSearch(uid: String, completion: @escaping(Result<[UserCredentials], Error>) -> Void) {
+    func userSearch(mail: String, completion: @escaping(Result<[UserCredentials], Error>) -> Void) {
         db.collection(collectionName)
-            .whereField("mail", isEqualTo: uid)
+            .whereField("mail", isEqualTo: mail.lowercased())
             .getDocuments { snapshot, error in
+                
                 if let error = error {
+                    print("❌ Firestore error:", error.localizedDescription)
                     completion(.failure(error))
                     return
                 }
-                
-                guard let documents = snapshot?.documents else {
-                    completion(.success([]))
+
+                guard let snapshot = snapshot else {
+                    print("❌ Snapshot nil ama error da nil – bu anormal bir durum.")
+                    completion(.failure(UserError.userNotFound)) // örnek özel hata
                     return
                 }
-                
-                let users: [UserCredentials] = documents.compactMap { doc in
+
+                let users: [UserCredentials] = snapshot.documents.compactMap { doc in
                     try? doc.data(as: UserCredentials.self)
                 }
+
+                print("✅ Bulunan kullanıcı sayısı: \(users.count)")
                 completion(.success(users))
             }
     }

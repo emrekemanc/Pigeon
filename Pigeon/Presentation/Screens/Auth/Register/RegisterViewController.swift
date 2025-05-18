@@ -27,6 +27,7 @@ class RegisterViewController: UIViewController{
         }
     }
     
+    
     @IBAction func registerButtonPress(_ sender: CustomButton) {
         guard validateValue() else{sender.shake(); return}
         let mail = mailTextField.text!
@@ -36,6 +37,7 @@ class RegisterViewController: UIViewController{
         viewModel.register(authCredentials: AuthCredentials(email: mail, password: password), userCredentials: UserCredentials(fullname: fullname, mail: mail, created_at: Date(), updated_at: Date()))
         
     }
+    
     private func validateValue() -> Bool{
         if let error = fullnameTextField.text?.isValidFullname(){
             fullnameTextField.showError(message: error.localizedDescription)
