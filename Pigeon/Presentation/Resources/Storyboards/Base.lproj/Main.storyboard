@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,11 +34,13 @@
                             <constraint firstItem="OpC-hz-rzN" firstAttribute="leading" secondItem="abP-ZO-evp" secondAttribute="leading" constant="159" id="UqT-jM-xaQ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape" catalog="system" id="GeM-2E-EUw"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape" catalog="system" id="GeM-2E-EUw">
+                        <color key="badgeColor" name="pigeonDark"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DbF-Mb-Cb3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-850" y="-54"/>
+            <point key="canvasLocation" x="579" y="-9"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="f34-iW-0mU">
@@ -47,15 +50,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="pigeonDark"/>
                     </tabBar>
                     <connections>
-                        <segue destination="MzW-Hp-iDh" kind="relationship" relationship="viewControllers" id="Y4D-2h-TXz"/>
-                        <segue destination="EM3-oN-1rv" kind="relationship" relationship="viewControllers" id="1e1-bw-iqS"/>
+                        <segue destination="EM3-oN-1rv" kind="relationship" relationship="viewControllers" id="l6o-bM-bNc"/>
+                        <segue destination="Evs-zA-0xa" kind="relationship" relationship="viewControllers" id="pRx-iO-Swa"/>
+                        <segue destination="MzW-Hp-iDh" kind="relationship" relationship="viewControllers" id="Fb4-cJ-oLZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lhu-ly-St3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="44" y="-802"/>
+            <point key="canvasLocation" x="-320" y="-767"/>
         </scene>
         <!--Chats-->
         <scene sceneID="fdj-cf-t4A">
@@ -88,12 +93,87 @@
                             <outlet property="delegate" destination="EM3-oN-1rv" id="Skx-IO-AOt"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Chats" image="message" catalog="system" id="10b-Vl-5cU"/>
+                    <tabBarItem key="tabBarItem" title="Chats" image="message" catalog="system" id="10b-Vl-5cU">
+                        <color key="badgeColor" name="pigeonDark"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="gfQ-I8-tbG"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fW4-R2-wNv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="43.511450381679388" y="-54.225352112676056"/>
+            <point key="canvasLocation" x="-879" y="-9"/>
+        </scene>
+        <!--Add Chat-->
+        <scene sceneID="Stg-OG-guf">
+            <objects>
+                <tableViewController storyboardIdentifier="ChatAddViewController" id="Evs-zA-0xa" customClass="ChatAddViewController" customModule="Pigeon" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="zoJ-ZN-emd">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="d1H-dT-KZ7">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Evs-zA-0xa" id="zpA-gD-CYz"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ChatAddCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatAddCell" rowHeight="80" id="eX2-aj-I4T" customClass="ChatAddCell" customModule="Pigeon" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="94" width="393" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eX2-aj-I4T" id="Rs2-gB-hnm">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjs-zV-njx">
+                                            <rect key="frame" x="20" y="22" width="50" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="TUG-3u-Jw1"/>
+                                                <constraint firstAttribute="height" constant="50" id="WpO-H9-nJ0"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserMail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3v-sM-CyZ">
+                                            <rect key="frame" x="78" y="21" width="295" height="38"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="V3v-sM-CyZ" secondAttribute="bottom" constant="10" id="235-9a-Tyx"/>
+                                        <constraint firstItem="zjs-zV-njx" firstAttribute="top" secondItem="Rs2-gB-hnm" secondAttribute="topMargin" constant="11" id="3TH-bU-INF"/>
+                                        <constraint firstItem="V3v-sM-CyZ" firstAttribute="leading" secondItem="zjs-zV-njx" secondAttribute="trailing" constant="8" id="6jU-Qr-Gap"/>
+                                        <constraint firstItem="V3v-sM-CyZ" firstAttribute="top" secondItem="Rs2-gB-hnm" secondAttribute="topMargin" constant="10" id="Y6h-M1-R8V"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="V3v-sM-CyZ" secondAttribute="trailing" id="g7f-Pw-lqA"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="zjs-zV-njx" secondAttribute="bottom" constant="11" id="xrm-j1-f1F"/>
+                                        <constraint firstItem="zjs-zV-njx" firstAttribute="leading" secondItem="Rs2-gB-hnm" secondAttribute="leadingMargin" id="zff-sg-Maq"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="userImageLabel" destination="zjs-zV-njx" id="heL-RT-0Tf"/>
+                                    <outlet property="userMailLabel" destination="V3v-sM-CyZ" id="UAF-aG-8wG"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Evs-zA-0xa" id="7Qb-6Q-P9R"/>
+                            <outlet property="delegate" destination="Evs-zA-0xa" id="5kS-2D-8Z4"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Add Chat" image="plus.circle" catalog="system" id="kCC-Kr-Sn6">
+                        <color key="badgeColor" name="pigeonDark"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="searchBar" destination="d1H-dT-KZ7" id="Nwa-h9-x4B"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jAG-Ci-hZt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-153.43511450381678" y="-9.1549295774647899"/>
         </scene>
         <!--Card Message View Controller-->
         <scene sceneID="VZP-sU-95i">
@@ -109,12 +189,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeP-jc-m17" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="876" y="-54"/>
+            <point key="canvasLocation" x="-1631" y="-335"/>
         </scene>
     </scenes>
     <resources>
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="message" catalog="system" width="128" height="116"/>
+        <image name="plus.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="pigeonDark">
+            <color red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
