@@ -19,13 +19,37 @@ final class AuthService{
             
         }
     }
-    func register(authCredentials: AuthCredentials,completion: @escaping(Result<Bool,Error>) -> Void){
+    func register(authCredentials: AuthCredentials,completion: @escaping(Result<String,Error>) -> Void){
         Auth.auth().createUser(withEmail: authCredentials.email, password: authCredentials.password ) { result, error in
+            if let error = error {
+                completion(.failure(error))
+                      return
+                  }
+                  guard let uid = result?.user.uid else {
+                      completion(.failure(AppError.auth(.userNotFound)))
+                      return
+                  }
+            completion(.success(uid))
+        }
+    }
+    
+    func delete(completion: @escaping(Result<Bool,Error>) -> Void){
+        Auth.auth().currentUser?.delete {error in
             if let error = error{
                 completion(.failure(error))
             }else{
                 completion(.success(true))
             }
+
+        }
+    }
+    
+    func signOut(completion: @escaping(Result<Bool,Error>) -> Void){
+        do{
+           try Auth.auth().signOut()
+            completion(.success(true))
+        }catch{
+            completion(.failure(error))
         }
     }
 }

@@ -23,11 +23,16 @@ class AuthCoordinator: CoordinatorProtocol {
         }
         navigationController.setViewControllers([vc], animated: true)
     }
+    
     func showRegister(){
         let vc = storyboard.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
         vc.onRegisterSuccess = {
             self.showLogin()
         }
+        vc.onLogin = {
+            self.showLogin()
+        }
         navigationController.setViewControllers([vc], animated: true)
     }
+    
 }
