@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Message{
-    let id: String
+struct MessageCredentials: Codable{
+    var id: String?
     let text: String
     let sender_id: String
     let receiver_id: String
     let created_at: Date
-    let chat_id: String
+    var chat_id: String?
 }

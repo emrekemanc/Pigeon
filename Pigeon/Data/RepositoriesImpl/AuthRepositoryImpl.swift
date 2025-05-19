@@ -21,4 +21,7 @@ final class AuthRepositoryImpl: AuthRepository{
     func signOut(completion: @escaping (Result<Bool, any Error>) -> Void) {
         authService.signOut(completion: completion)
     }
+    func fetchUserId(completion: @escaping(Result<String,Error>) -> Void){
+        authService.fetchUserId(completion: completion)
+    }
 }
