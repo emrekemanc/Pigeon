@@ -52,4 +52,8 @@ final class AuthService{
             completion(.failure(error))
         }
     }
+    func fetchUserId(completion: @escaping(Result<String,Error>) -> Void){
+            guard let userId = Auth.auth().currentUser?.uid else {completion(.failure(AuthError.userNotFound)); return}
+            completion(.success(userId))
+           }
 }
