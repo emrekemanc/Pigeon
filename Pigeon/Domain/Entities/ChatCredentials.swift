@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct ChatCredentials{
+struct ChatCredentials: Codable{
     let id: String
     let user1_id: String
     let user2_id: String
     let created_at: Date
-    let messages: [MessageCredentials]
+    let messages_id: [String]
 }

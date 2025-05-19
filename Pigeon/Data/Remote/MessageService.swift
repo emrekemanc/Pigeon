@@ -32,13 +32,16 @@ final class MessageService {
 
         databaseRef
             .child(chats)
-            .child(message.chat_id)
+            .child(message.chat_id!)
             .child(messages)
-            .child(message.id)
-            .setValue(messageData) { error in
-                completion(.failure(error))
+            .child(message.id!)
+            .setValue(messageData) { error, _ in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(true))
+                }
             }
-        completion(.success(true))
     }
 
 
