@@ -20,7 +20,7 @@ final class MessageService {
     private let chats: String = "chats"
     private let messages: String = "messages"
 
-    func sendMessage(_ message: Message, completion: @escaping (Result<Bool,Error>) -> Void) {
+    func sendMessage(_ message: MessageCredentials, completion: @escaping (Result<Bool,Error>) -> Void) {
         let messageData: [String: Any] = [
             id: message.id,
             text: message.text,
@@ -42,7 +42,7 @@ final class MessageService {
     }
 
 
-    func observeMessages(chatID: String, completion: @escaping (Result<Message,Error>) -> Void) {
+    func observeMessages(chatID: String, completion: @escaping (Result<MessageCredentials,Error>) -> Void) {
         databaseRef
             .child(chats)
             .child(chatID)
@@ -61,7 +61,7 @@ final class MessageService {
                     return
                 }
 
-                let message = Message(
+                let message = MessageCredentials(
                     id: id,
                     text: text,
                     sender_id: senderID,
