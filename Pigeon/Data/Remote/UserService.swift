@@ -89,22 +89,18 @@ class UserService {
             .getDocuments { snapshot, error in
                 
                 if let error = error {
-                    print("❌ Firestore error:", error.localizedDescription)
                     completion(.failure(error))
                     return
                 }
 
                 guard let snapshot = snapshot else {
-                    print("❌ Snapshot nil ama error da nil – bu anormal bir durum.")
-                    completion(.failure(UserError.userNotFound)) // örnek özel hata
+                    completion(.failure(UserError.userNotFound)) 
                     return
                 }
 
                 let users: [UserCredentials] = snapshot.documents.compactMap { doc in
                     try? doc.data(as: UserCredentials.self)
                 }
-
-                print("✅ Bulunan kullanıcı sayısı: \(users.count)")
                 completion(.success(users))
             }
     }
