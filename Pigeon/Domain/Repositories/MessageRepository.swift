@@ -6,7 +6,6 @@
 //
 
 protocol MessageRepository{
-    func sendMessage(_ message: MessageCredentials, completion: @escaping (Result<Bool,Error>) -> Void)
-    func observeMessages(chatID: String, completion: @escaping (Result<MessageCredentials,Error>) -> Void)
-    func removeObservers(chatID: String)
+    func sendMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, Error>) -> Void)
+    func fetchMessages(for chat: ChatCredentials, completion: @escaping (Result<[MessageCredentials], Error>) -> Void) 
 }

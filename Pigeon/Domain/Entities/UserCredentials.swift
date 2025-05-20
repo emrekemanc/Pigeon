@@ -11,8 +11,9 @@ import FirebaseFirestore
 struct UserCredentials: Codable, Identifiable {
     @DocumentID var id: String?
     var fullname: String
-    var mail: String
+    var email: String
     var created_at: Date
     var updated_at: Date
-    var channel_ids: [String]?
+    var fcm_token: String?
+    var chat_ids: [String]
 }

@@ -6,11 +6,11 @@
 //
 
 import Foundation
-
-struct ChatCredentials: Codable{
-    let id: String
-    let user1_id: String
-    let user2_id: String
-    let created_at: Date
-    let messages_id: [String]
+import FirebaseFirestore
+struct ChatCredentials: Codable, Identifiable {
+    @DocumentID var id: String?
+    var user1_id: String
+    var user2_id: String
+    var created_at: Date
+    var messages_ids: [String]
 }
