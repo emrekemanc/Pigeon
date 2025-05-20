@@ -11,7 +11,7 @@ final class FetchChatUseCase{
     init(repository: ChatRepository) {
         self.repository = repository
     }
-    func execute(by id: String, completion: @escaping (Result<ChatCredentials, any Error>) -> Void){
-        repository.fetchChat(by: id, completion: completion)
+    func execute(by chatID: String, completion: @escaping (Result<ChatCredentials, Error>) -> Void){
+        repository.fetchChat(by: chatID, completion: completion)
     }
 }

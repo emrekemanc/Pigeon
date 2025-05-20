@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-struct MessageCredentials: Codable{
-    var id: String?
-    let text: String
-    let sender_id: String
-    let receiver_id: String
-    let created_at: Date
-    var chat_id: String?
+struct MessageCredentials: Codable, Identifiable {
+    @DocumentID var id: String?
+    var chat_id: String
+    var sender_id: String
+    var receiver_id: String
+    var text: String
+    var created_at: Date
+    var is_read: Bool
 }

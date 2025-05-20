@@ -10,7 +10,7 @@ final class SendMessageUseCase{
     init(repository: MessageRepository) {
         self.repository = repository
     }
-    func execute(_ message: MessageCredentials, completion: @escaping (Result<Bool,Error>) -> Void){
+    func execute(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, Error>) -> Void){
         repository.sendMessage(message, completion: completion)
     }
 }

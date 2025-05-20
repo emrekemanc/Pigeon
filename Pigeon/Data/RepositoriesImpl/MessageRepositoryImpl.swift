@@ -7,17 +7,13 @@
 
 final class MessageRepositoryImpl: MessageRepository{
     private let messageService: MessageService = MessageService()
-    func sendMessage(_ message: MessageCredentials, completion: @escaping (Result<Bool, any Error>) -> Void) {
+   
+    func sendMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, any Error>) -> Void) {
         messageService.sendMessage(message, completion: completion)
     }
     
-    func observeMessages(chatID: String, completion: @escaping (Result<MessageCredentials, any Error>) -> Void) {
-        messageService.observeMessages(chatID: chatID, completion: completion)
+    func fetchMessages(for chat: ChatCredentials, completion: @escaping (Result<[MessageCredentials], any Error>) -> Void) {
+        messageService.fetchMessages(for: chat, completion: completion)
     }
-    
-    func removeObservers(chatID: String) {
-        messageService.removeObservers(chatID: chatID)
-    }
-    
     
 }
