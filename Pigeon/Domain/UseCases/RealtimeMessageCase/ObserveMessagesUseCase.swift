@@ -10,7 +10,7 @@ final class ObserveMessagesUseCase{
     init(repository: RealtimeMessageRepository) {
         self.repository = repository
     }
-    func execute(chatID: String, onNewMessage: @escaping (Result<MessageCredentials, any Error>) -> Void) {
+    func execute(chatID: String, onNewMessage: @escaping (Result<String, any Error>) -> Void) {
         repository.observeMessages(chatID: chatID, onNewMessage: onNewMessage)
     }
 }

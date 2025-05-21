@@ -172,11 +172,11 @@
                                 <rect key="frame" x="0.0" y="118" width="393" height="614"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ChatMessageCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatMessageCell" rowHeight="114" id="oYg-Qo-jS0" customClass="ChatMessageCell" customModule="Pigeon" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="114"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ChatMessageCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatMessageCell" rowHeight="106" id="oYg-Qo-jS0" customClass="ChatMessageCell" customModule="Pigeon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="106"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oYg-Qo-jS0" id="faz-75-5KF">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="114"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95Z-au-44Z">
@@ -200,13 +200,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYH-rq-j4l">
-                                                    <rect key="frame" x="146" y="41" width="177" height="20.333333333333329"/>
+                                                    <rect key="frame" x="146" y="41" width="177" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEQ-Km-baj">
-                                                    <rect key="frame" x="70" y="41" width="177" height="20.333333333333329"/>
+                                                    <rect key="frame" x="70" y="41" width="177" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -219,6 +219,8 @@
                                                 <constraint firstItem="HYH-rq-j4l" firstAttribute="leading" secondItem="faz-75-5KF" secondAttribute="leadingMargin" constant="126" id="89L-7s-k5K"/>
                                                 <constraint firstItem="HYH-rq-j4l" firstAttribute="top" secondItem="faz-75-5KF" secondAttribute="topMargin" constant="30" id="IEY-CI-4Dg"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yEQ-Km-baj" secondAttribute="trailing" constant="126" id="Jf0-Lo-kpr"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HYH-rq-j4l" secondAttribute="bottom" constant="30" id="TQS-ZR-Q6I"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="yEQ-Km-baj" secondAttribute="bottom" constant="30" id="Vbg-3i-dQQ"/>
                                                 <constraint firstItem="yEQ-Km-baj" firstAttribute="leading" secondItem="95Z-au-44Z" secondAttribute="trailing" constant="10" id="XrK-M4-Fyh"/>
                                                 <constraint firstItem="95Z-au-44Z" firstAttribute="top" secondItem="faz-75-5KF" secondAttribute="topMargin" constant="20" id="dlp-Ni-gsb"/>
                                                 <constraint firstItem="IOx-Ae-cP3" firstAttribute="leading" secondItem="HYH-rq-j4l" secondAttribute="trailing" constant="10" id="iiI-UX-qpW"/>
