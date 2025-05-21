@@ -97,6 +97,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="8vQ-Ep-ERm" id="Uu9-d7-ETc"/>
                         <outlet property="mailTextField" destination="h6c-JZ-Xv1" id="NvH-xz-YC1"/>
                         <outlet property="passwordTextField" destination="GZX-cN-wYw" id="Ono-RP-Dad"/>
                     </connections>
@@ -194,6 +195,7 @@
                         <outlet property="fullnameTextField" destination="qLf-up-YnT" id="GLY-MJ-sq5"/>
                         <outlet property="mailTextField" destination="Eqo-E8-hhM" id="NAX-Pa-xcR"/>
                         <outlet property="passwordTextField" destination="hkO-FI-WhD" id="yn7-Vq-Q32"/>
+                        <outlet property="registerButton" destination="LUb-DN-i9H" id="w12-rI-7pu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ji-hM-FWC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

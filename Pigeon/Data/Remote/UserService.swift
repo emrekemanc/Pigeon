@@ -10,26 +10,24 @@ import FirebaseFirestore
 class UserService {
     
     private let db = Firestore.firestore()
-    private let collectionName = "users"
+    private let collectionName = "Users"
     
     func userCreate(userCredentials: UserCredentials, completion: @escaping(Result<Bool, Error>) -> Void) {
         do {
-            var userToSave = userCredentials
-            if userToSave.id == nil {
-                userToSave.id = UUID().uuidString
-            }
-            userToSave.created_at = Date()
-            userToSave.updated_at = Date()
-            
-            try db.collection(collectionName).document(userToSave.id!).setData(from: userToSave) { error in
+            let userToSave = userCredentials
+            guard let uid = userToSave.id else {
+                       completion(.failure(UserError.invalidUserId))
+                       return
+                   }
+            try db.collection(collectionName).document(uid).setData(from: userToSave) { error in
                 if let error = error {
-                    completion(.failure(UserError.firestoreError(error)))
+                    completion(.failure(error))
                 } else {
                     completion(.success(true))
                 }
             }
         } catch {
-            completion(.failure(UserError.unknownError))
+            completion(.failure(error))
         }
     }
     
@@ -37,7 +35,7 @@ class UserService {
         let docRef = db.collection(collectionName).document(uid)
         docRef.getDocument{ snapshot, error in
             if let error = error {
-                completion(.failure(UserError.firestoreError(error)))
+                completion(.failure(error))
                 return
             }
             guard let snapshot = snapshot, snapshot.exists else {
@@ -49,7 +47,7 @@ class UserService {
                     completion(.success(user))
                 
             } catch {
-                completion(.failure(UserError.decodingError))
+                completion(.failure(error))
             }
         }
     }
@@ -57,7 +55,7 @@ class UserService {
     func userDeleted(uid: String, completion: @escaping(Result<Bool, Error>) -> Void) {
         db.collection(collectionName).document(uid).delete { error in
             if let error = error {
-                completion(.failure(UserError.firestoreError(error)))
+                completion(.failure(error))
             } else {
                 completion(.success(true))
             }
@@ -69,40 +67,59 @@ class UserService {
             completion(.failure(UserError.invalidUserId))
             return
         }
-        var updatedUser = userCredentials
-        updatedUser.updated_at = Date()
+        let docRef = db.collection(collectionName).document(uid)
         
-        do {
-            try db.collection(collectionName).document(uid).setData(from: updatedUser) { error in
-                if let error = error {
-                    completion(.failure(UserError.firestoreError(error)))
-                } else {
-                    completion(.success(true))
-                }
+        docRef.getDocument { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
-        } catch {
-            completion(.failure(UserError.unknownError))
+            if snapshot?.exists == true {
+                do {
+                    try docRef.setData(from: userCredentials) { error in
+                        if let error = error {
+                            completion(.failure(error))
+                        } else {
+                            completion(.success(true))
+                        }
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            } else {
+                completion(.failure(UserError.userNotFound))
+            }
         }
     }
     
-    
-    func userSearch(uid: String, completion: @escaping(Result<[UserCredentials], Error>) -> Void) {
+    func userSearch(mail: String, completion: @escaping(Result<[UserCredentials], Error>) -> Void) {
+        let mailToSearch = mail.lowercased()
+        
         db.collection(collectionName)
-            .whereField("mail", isEqualTo: uid)
+            .whereField("email", isEqualTo: mailToSearch)
             .getDocuments { snapshot, error in
+                print("Searching for: \(mailToSearch)")
+                
                 if let error = error {
-                    completion(.failure(UserError.firestoreError(error)))
+                    print("Firestore error: \(error.localizedDescription)")
+                    completion(.failure(error))
                     return
                 }
-                
-                guard let documents = snapshot?.documents else {
-                    completion(.success([]))
+
+                guard let snapshot = snapshot else {
+                    print("No snapshot returned")
+                    completion(.failure(UserError.userNotFound))
                     return
                 }
+
+                let docs = snapshot.documents.map { $0.data() }
+                print("Found documents: \(docs)")
                 
-                let users: [UserCredentials] = documents.compactMap { doc in
+                let users: [UserCredentials] = snapshot.documents.compactMap { doc in
                     try? doc.data(as: UserCredentials.self)
                 }
+
+                print("Decoded users: \(users)")
                 completion(.success(users))
             }
     }

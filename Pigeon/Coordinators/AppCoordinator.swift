@@ -13,27 +13,30 @@ class AppCoordinator: CoordinatorProtocol {
     }
 
     func start() {
+        authCoordinator = AuthCoordinator(navigationController: navigationController)
+        authCoordinator?.onLoginSuccess = {
+            self.showMain()
+        }
+        mainCoordinator = MainCoordinator(navigationController: navigationController)
+        mainCoordinator?.onLogout = {
+            self.showAuth()
+        }
+        
         if isUserLogin(){
             showMain()
         }else{
             showAuth()
         }
+        
     }
     
     func showAuth(){
-        authCoordinator = AuthCoordinator(navigationController: navigationController)
-        authCoordinator?.onLoginSuccess = {
-            self.showMain()
-        }
         authCoordinator?.start()
     }
     func showMain(){
-        mainCoordinator = MainCoordinator(navigationController: navigationController)
-        mainCoordinator?.onLogout = {
-            self.showAuth()
-        }
         mainCoordinator?.start()
     }
+    
    private func isUserLogin() -> Bool{
         return Auth.auth().currentUser != nil
     }
