@@ -11,7 +11,7 @@ final class RegisterUserUseCases{
     init(repository: AuthRepository) {
         self.repository = repository
     }
-    func execute(authCredentials: AuthCredentials, completion: @escaping (Result<String?, any Error>) -> Void){
+    func execute(authCredentials: AuthCredentials, completion: @escaping (Result<String, any Error>) -> Void){
         repository.register(authCredentials: authCredentials, completion: completion)
     }
 }

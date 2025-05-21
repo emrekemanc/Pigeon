@@ -10,7 +10,7 @@ import FirebaseAuth
 final class AuthService{
     func login(authCredentials: AuthCredentials,completion: @escaping(Result<Bool,Error>) -> Void){
         
-        Auth.auth().signIn(withEmail: authCredentials.email, password: authCredentials.password ) { result, error in
+        Auth.auth().signIn(withEmail: authCredentials.email.lowercased(), password: authCredentials.password ) { result, error in
             if let error = error{
                 completion(.failure(error))
             }else{
@@ -19,15 +19,20 @@ final class AuthService{
             
         }
     }
-    func register(authCredentials: AuthCredentials,completion: @escaping(Result<String?,Error>) -> Void){
-        Auth.auth().createUser(withEmail: authCredentials.email, password: authCredentials.password ) { result, error in
-            if let error = error{
+    func register(authCredentials: AuthCredentials,completion: @escaping(Result<String,Error>) -> Void){
+        Auth.auth().createUser(withEmail: authCredentials.email.lowercased(), password: authCredentials.password ) { result, error in
+            if let error = error {
                 completion(.failure(error))
-            }else{
-                completion(.success(result?.user.uid))
-            }
+                      return
+                  }
+                  guard let uid = result?.user.uid else {
+                      completion(.failure(AppError.auth(.userNotFound)))
+                      return
+                  }
+            completion(.success(uid))
         }
     }
+    
     func delete(completion: @escaping(Result<Bool,Error>) -> Void){
         Auth.auth().currentUser?.delete {error in
             if let error = error{
@@ -47,4 +52,8 @@ final class AuthService{
             completion(.failure(error))
         }
     }
+    func fetchUserId(completion: @escaping(Result<String,Error>) -> Void){
+            guard let userId = Auth.auth().currentUser?.uid else {completion(.failure(AuthError.userNotFound)); return}
+            completion(.success(userId))
+           }
 }

@@ -10,7 +10,7 @@ final class SearchUserUseCase{
     init(repository: UserRepository) {
         self.repository = repository
     }
-    func execute(uid: String, completion: @escaping(Result<[UserCredentials],Error>) -> Void){
-        repository.userSearch(uid: uid, completion: completion)
+    func execute(mail: String, completion: @escaping(Result<[UserCredentials],Error>) -> Void){
+        repository.userSearch(mail: mail, completion: completion)
     }
 }

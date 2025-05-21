@@ -14,11 +14,14 @@ final class AuthRepositoryImpl: AuthRepository{
         authService.login(authCredentials: authCredentials, completion: completion)
     }
     
-    func register(authCredentials: AuthCredentials, completion: @escaping (Result<String?, any Error>) -> Void) {
+    func register(authCredentials: AuthCredentials, completion: @escaping (Result<String, any Error>) -> Void) {
         authService.register(authCredentials: authCredentials, completion: completion)
     }
     
     func signOut(completion: @escaping (Result<Bool, any Error>) -> Void) {
         authService.signOut(completion: completion)
+    }
+    func fetchUserId(completion: @escaping(Result<String,Error>) -> Void){
+        authService.fetchUserId(completion: completion)
     }
 }
