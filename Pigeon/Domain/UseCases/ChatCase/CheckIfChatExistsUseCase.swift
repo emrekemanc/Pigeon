@@ -11,6 +11,6 @@ final class CheckIfChatExistsUseCase{
         self.repository = repository
     }
     func execute(between chat: ChatCredentials, completion: @escaping (Result<ChatCredentials?, Error>) -> Void){
-        execute(between: chat, completion: completion)
+        repository.checkIfChatExists(between: chat, completion: completion)
     }
 }

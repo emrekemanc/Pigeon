@@ -50,8 +50,9 @@ final class RegisterViewModel {
                 self.signOutUseCaseFunc()
             case .failure(let error):
                 print("Create User Error: \(error.localizedDescription)")
-                self.signOutUseCaseFunc()
                 self.deleteUserUseCaseFunc()
+                self.signOutUseCaseFunc()
+              
                 self.handleError(error)
             }
         }

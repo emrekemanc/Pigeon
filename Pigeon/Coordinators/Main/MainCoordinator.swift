@@ -14,8 +14,8 @@ class MainCoordinator: CoordinatorProtocol {
    
     func start() {
             chatAddCoordinator = ChatAddCoordinator(navigationController: UINavigationController())
-        chatAddCoordinator.selectedUser = {
-            self.showChatMessage()
+        chatAddCoordinator.selectedUser = { chat, reciverId in
+            self.showChatMessage(chat: chat,reciverId: reciverId)
         }
             chatListCoordinator = ChatListCoordinator(navigationController: UINavigationController())
             settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController())
@@ -30,8 +30,10 @@ class MainCoordinator: CoordinatorProtocol {
         navigationController.setViewControllers([tabBarController], animated: true)
     }
     
-    func showChatMessage(){
+    func showChatMessage(chat: ChatCredentials?,reciverId: String){
        let chatMessageCoordinator = ChatMessageCoordinator(navigationController: navigationController)
+        chatMessageCoordinator.chat = chat
+        chatMessageCoordinator.reciverId = reciverId
         chatMessageCoordinator.start()
         
         

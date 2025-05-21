@@ -10,7 +10,7 @@ import FirebaseDatabase
 
 final class RealtimeMessageService {
 
-    private let databaseRef = Database.database().reference()
+    private let databaseRef = Database.database(url: "https://pigeon-d7730-default-rtdb.europe-west1.firebasedatabase.app").reference()
     private let chats = "chats"
     private let messages = "messages"
 

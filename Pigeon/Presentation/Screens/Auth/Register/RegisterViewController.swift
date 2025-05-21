@@ -34,7 +34,7 @@ class RegisterViewController: UIViewController{
         let fullname = fullnameTextField.text!
         let password = passwordTextField.text!
         sender.showLoading(true, disableWhileLoading: true)
-        viewModel.register(authCredentials: AuthCredentials(email: mail, password: password), userCredentials: UserCredentials(fullname: fullname, mail: mail, created_at: Date(), updated_at: Date()))
+        viewModel.register(authCredentials: AuthCredentials(email: mail, password: password), userCredentials: UserCredentials(fullname: fullname, email: mail.lowercased(), created_at: Date(), updated_at: Date(), chat_ids: []))
         
     }
     
