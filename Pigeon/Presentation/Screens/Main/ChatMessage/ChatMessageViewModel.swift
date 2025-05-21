@@ -13,6 +13,7 @@ class ChatMessageViewModel {
     var onShowError: ((Error) -> Void)?
     var fetchUserId: ((String) -> Void)?
     var onNewChat: ((ChatCredentials) -> Void)?
+    var onMessageSent: (() -> Void)?
     
     // Send a message to a receiver, optionally within an existing chat
     func sendMessage(text: String, to receiverID: String, chat: ChatCredentials?) {
@@ -33,7 +34,7 @@ class ChatMessageViewModel {
             guard let self = self else { return }
             switch result {
             case .success(let message):
-                self.appendMessageAndNotify(message, chat: chat)
+                self.appendMessageAndNotify(message)
             case .failure(let error):
                 self.handleError(error)
             }
@@ -52,44 +53,19 @@ class ChatMessageViewModel {
     }
 
     // Decide whether to send message in existing chat or create a new chat first
-    private func processMessageSend(senderID: String,
-                                    receiverID: String,
-                                    text: String,
-                                    chat: ChatCredentials?) {
+    private func processMessageSend(senderID: String,receiverID: String,text: String,chat: ChatCredentials?) {
         let messageID = UUID().uuidString
         let timestamp = Date()
-
         if let existingChat = chat {
-            sendMessageInExistingChat(messageID: messageID,
-                                      chatID: existingChat.id ?? "",
-                                      senderID: senderID,
-                                      receiverID: receiverID,
-                                      text: text,
-                                      date: timestamp,
-                                      chat: existingChat)
+            sendMessageInExistingChat(messageID: messageID,chatID: existingChat.id ?? "",senderID: senderID,receiverID: receiverID,text: text,date: timestamp,chat: existingChat)
         } else {
-            createNewChatAndSendMessage(messageID: messageID,
-                                        senderID: senderID,
-                                        receiverID: receiverID,
-                                        text: text,
-                                        timestamp: timestamp)
+            createNewChatAndSendMessage(messageID: messageID,senderID: senderID,receiverID: receiverID,text: text,timestamp: timestamp)
         }
     }
 
     // Send message in an existing chat and then send realtime notification
-    private func sendMessageInExistingChat(messageID: String,
-                                           chatID: String,
-                                           senderID: String,
-                                           receiverID: String,
-                                           text: String,
-                                           date: Date,
-                                           chat: ChatCredentials) {
-        let message = buildMessage(id: messageID,
-                                   chatID: chatID,
-                                   senderID: senderID,
-                                   receiverID: receiverID,
-                                   text: text,
-                                   date: date)
+    private func sendMessageInExistingChat(messageID: String,chatID: String,senderID: String,receiverID: String,text: String,date: Date,chat: ChatCredentials) {
+        let message = buildMessage(id: messageID,chatID: chatID,senderID: senderID,receiverID: receiverID,text: text,date: date)
         
         // Save message to the database
         sendMessageUseCase.execute(message) { [weak self] result in
@@ -101,6 +77,7 @@ class ChatMessageViewModel {
                     switch realtimeResult {
                     case .success:
                         print("Realtime message sent")
+                        self.onMessageSent?()
                     case .failure(let error):
                         self.handleError(error)
                     }
@@ -112,11 +89,7 @@ class ChatMessageViewModel {
     }
 
     // Create a new chat in Firestore and then send the first message
-    private func createNewChatAndSendMessage(messageID: String,
-                                             senderID: String,
-                                             receiverID: String,
-                                             text: String,
-                                             timestamp: Date) {
+    private func createNewChatAndSendMessage(messageID: String,senderID: String,receiverID: String,text: String,timestamp: Date) {
         // Build new chat object with participants and timestamp
         let newChat = ChatCredentials(
             user1_id: senderID,
@@ -149,12 +122,8 @@ class ChatMessageViewModel {
     }
 
     // Build message object with necessary details
-    private func buildMessage(id: String,
-                              chatID: String,
-                              senderID: String,
-                              receiverID: String,
-                              text: String,
-                              date: Date) -> MessageCredentials {
+    private func buildMessage(id: String,chatID: String,senderID: String,receiverID: String,text: String,date: Date) -> MessageCredentials {
+        
         return MessageCredentials(
             id: id,
             chat_id: chatID,
@@ -167,22 +136,11 @@ class ChatMessageViewModel {
     }
 
     // Add message ID to chat and append message to local list, then update UI
-    private func appendMessageAndNotify(_ message: MessageCredentials, chat: ChatCredentials) {
-        // Append message ID to chat's message list in backend
-        self.appendMessageToChatUseCase.execute(chat: chat, messageID: message.id!) { result in
-            switch result {
-            case .success(true):
-                print("Message successfully added to chat")
-            case .success(false):
-                print("Message was not added to chat")
-            case .failure(let error):
-                self.onShowError?(error)
-            }
-        }
-        // Append message locally
+    private func appendMessageAndNotify(_ message: MessageCredentials) {
+        guard !self.messages.contains(where: { $0.id == message.id }) else { return }
+
         self.messages.append(message)
-        print(message)
-        // Notify UI about message update
+        self.messages.sort { $0.created_at < $1.created_at }
         self.onMessageUpdate?()
     }
 

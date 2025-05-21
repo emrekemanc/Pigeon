@@ -32,7 +32,7 @@ class ChatMessageViewController: UIViewController{
             }
         }
 
-        viewModel.onShowError = { error in
+        viewModel.onShowError = {error in
             print("Hata: \(error.localizedDescription)")
         }
 
@@ -74,7 +74,9 @@ extension ChatMessageViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatMessageCell", for: indexPath) as! ChatMessageCell
         let message = viewModel.messages[indexPath.row]
-        guard let uid = senderId else {return cell}
+        guard let uid = senderId else {
+            print("sender id bulunamadı")
+            return cell}
         cell.cellConfigure(message: message, selfId: uid)
         return cell
     }

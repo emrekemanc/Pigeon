@@ -12,9 +12,9 @@ final class MessageService {
     private let db = Firestore.firestore()
     private let messagesCollection = "messages"
 
-    func sendMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, Error>) -> Void) {
+    func addMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, Error>) -> Void) {
         guard let messageID = message.id else {
-            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Geçersiz mesaj ID"])))
+            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid message ID"])))
             return
         }
 
@@ -31,15 +31,15 @@ final class MessageService {
         }
     }
 
-    func fetchMessages(for chat: ChatCredentials, completion: @escaping (Result<[MessageCredentials], Error>) -> Void) {
+    func fetchAllMessages(for chat: ChatCredentials, completion: @escaping (Result<[MessageCredentials], Error>) -> Void) {
         guard let chatID = chat.id else {
-            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Geçersiz chat ID"])))
+            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid chat ID"])))
             return
         }
 
         db.collection(messagesCollection)
             .whereField("chat_id", isEqualTo: chatID)
-            .order(by: "created_at", descending: false)
+            .order(by: "created_at", descending: true)
             .getDocuments { snapshot, error in
                 if let error = error {
                     completion(.failure(error))
@@ -52,5 +52,60 @@ final class MessageService {
 
                 completion(.success(messages))
             }
+    }
+    func deleteMessage(withID id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        db.collection(messagesCollection).document(id).delete { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(true))
+            }
+        }
+    }
+
+    func deleteAllMessages(for chat: ChatCredentials, completion: @escaping (Result<Bool, Error>) -> Void) {
+        guard let chatID = chat.id else {
+            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid chat ID"])))
+            return
+        }
+
+        db.collection(messagesCollection)
+            .whereField("chat_id", isEqualTo: chatID)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                let batch = self.db.batch()
+                snapshot?.documents.forEach { batch.deleteDocument($0.reference) }
+
+                batch.commit { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(true))
+                    }
+                }
+            }
+    }
+
+    func updateMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, Error>) -> Void) {
+        guard let id = message.id else {
+            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid message ID"])))
+            return
+        }
+
+        do {
+            try db.collection(messagesCollection).document(id).setData(from: message) { error in
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.success(message))
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
     }
 }
