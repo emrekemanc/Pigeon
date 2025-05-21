@@ -12,12 +12,12 @@ class SettingsViewController: UIViewController{
     var onSignOut: (() -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        settingsConfiguration()
     }
     func settingsConfiguration(){
-        viewModel.onSuccess = { [weak self] success in
+        viewModel.onSuccess = { success in
             print("çıkıldı")
-            self?.onSignOut?()
+            self.onSignOut?()
         }
         viewModel.onError = { error in
             print(error.localizedDescription)

@@ -67,40 +67,59 @@ class UserService {
             completion(.failure(UserError.invalidUserId))
             return
         }
-        var updatedUser = userCredentials
-        updatedUser.updated_at = Date()
+        let docRef = db.collection(collectionName).document(uid)
         
-        do {
-            try db.collection(collectionName).document(uid).setData(from: updatedUser) { error in
-                if let error = error {
-                    completion(.failure(error))
-                } else {
-                    completion(.success(true))
-                }
+        docRef.getDocument { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
-        } catch {
-            completion(.failure(error))
+            if snapshot?.exists == true {
+                do {
+                    try docRef.setData(from: userCredentials) { error in
+                        if let error = error {
+                            completion(.failure(error))
+                        } else {
+                            completion(.success(true))
+                        }
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
+            } else {
+                completion(.failure(UserError.userNotFound))
+            }
         }
     }
     
     func userSearch(mail: String, completion: @escaping(Result<[UserCredentials], Error>) -> Void) {
+        let mailToSearch = mail.lowercased()
+        
         db.collection(collectionName)
-            .whereField("mail", isEqualTo: mail.lowercased())
+            .whereField("email", isEqualTo: mailToSearch)
             .getDocuments { snapshot, error in
+                print("Searching for: \(mailToSearch)")
                 
                 if let error = error {
+                    print("Firestore error: \(error.localizedDescription)")
                     completion(.failure(error))
                     return
                 }
 
                 guard let snapshot = snapshot else {
-                    completion(.failure(UserError.userNotFound)) 
+                    print("No snapshot returned")
+                    completion(.failure(UserError.userNotFound))
                     return
                 }
 
+                let docs = snapshot.documents.map { $0.data() }
+                print("Found documents: \(docs)")
+                
                 let users: [UserCredentials] = snapshot.documents.compactMap { doc in
                     try? doc.data(as: UserCredentials.self)
                 }
+
+                print("Decoded users: \(users)")
                 completion(.success(users))
             }
     }

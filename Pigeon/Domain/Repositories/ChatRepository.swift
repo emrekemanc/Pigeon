@@ -11,4 +11,5 @@ protocol ChatRepository {
     func fetchChat(by chatID: String, completion: @escaping (Result<ChatCredentials, Error>) -> Void)
     func checkIfChatExists(between chat: ChatCredentials, completion: @escaping (Result<ChatCredentials?, Error>) -> Void)
     func appendMessageToChat(chat: ChatCredentials, messageID: String, completion: @escaping (Result<Bool, Error>) -> Void)
+    func addChatIDToUsers(chatID: String, userIDs: [String], completion: @escaping (Result<Bool, Error>) -> Void)
 }

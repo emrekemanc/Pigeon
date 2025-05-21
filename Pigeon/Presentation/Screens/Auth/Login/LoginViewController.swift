@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
         mailTextField.hideError()
         guard let password = passwordTextField.text, password.isNotEmpty else {passwordTextField.showError(message: ValidationError.emptyPassword.localizedDescription); sender.shake(); return}
         sender.showLoading(true, disableWhileLoading: true)
-        viewModel.login(with: AuthCredentials(email: mail, password: password))
+        viewModel.login(with: AuthCredentials(email: mail.lowercased(), password: password))
     }
     
     
