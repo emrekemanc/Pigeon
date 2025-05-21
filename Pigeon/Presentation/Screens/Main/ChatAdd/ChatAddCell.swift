@@ -19,6 +19,5 @@ class ChatAddCell: UITableViewCell{
         } else {
             userImageLabel.text = "?"
         }
-        userMailLabel.text = user.mail
-    }
+        userMailLabel.text = user.email    }
 }

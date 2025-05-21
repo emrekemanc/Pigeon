@@ -106,7 +106,7 @@ final class ChatService {
 
         let chatRef = db.collection(chatsCollection).document(chatID)
         chatRef.updateData([
-            "messages_id": FieldValue.arrayUnion([messageID])
+            "messages_ids": FieldValue.arrayUnion([messageID])
         ]) { error in
             if let error = error {
                 completion(.failure(error))
@@ -128,7 +128,10 @@ final class ChatService {
                 "chat_ids": FieldValue.arrayUnion([chatID])
             ]) { error in
                 if let error = error {
+                    print("Chat ID eklenirken hata oluştu (\(userID)): \(error.localizedDescription)")
                     lastError = error
+                } else {
+                    print("Chat ID başarıyla eklendi: \(userID)")
                 }
                 group.leave()
             }

@@ -7,7 +7,7 @@
 import UIKit
 class ChatAddCoordinator: CoordinatorProtocol{
     var navigationController: UINavigationController
-    var selectedUser: (() -> Void)?
+    var selectedUser: ((ChatCredentials?,String) -> Void)?
     private let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -15,8 +15,8 @@ class ChatAddCoordinator: CoordinatorProtocol{
     
     func start() {
         let vc = storyBoard.instantiateViewController(withIdentifier: "ChatAddViewController") as! ChatAddViewController
-        vc.userSelected = {
-            self.selectedUser?()
+        vc.userSelected = { chat,reciverId in
+            self.selectedUser?(chat,reciverId)
         }
         vc.tabBarItem = UITabBarItem(title: "Add Chat", image: UIImage(systemName: "plus"), tag: 1)
         navigationController.setViewControllers([vc], animated: false)

@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 struct ChatCredentials: Codable, Identifiable {
-    @DocumentID var id: String?
+   @DocumentID var id: String?
     var user1_id: String
     var user2_id: String
     var created_at: Date

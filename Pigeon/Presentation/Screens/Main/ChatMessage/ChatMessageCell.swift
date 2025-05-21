@@ -14,7 +14,7 @@ class ChatMessageCell: UITableViewCell{
     @IBOutlet weak var user2MessageView: UILabel!
     @IBOutlet weak var user1MessageView: UILabel!
     
-    func cellConfigure(message: Message, selfId: String){
+    func cellConfigure(message: MessageCredentials, selfId: String){
         if selfId == message.sender_id{
             user2ImageView.isHidden = true
             user2MessageView.isHidden = true

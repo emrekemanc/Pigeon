@@ -12,7 +12,7 @@ class ChatAddViewController: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     private var users: [UserCredentials] = []
     private let viewModel: ChatAddViewModel = ChatAddViewModel()
-    var userSelected: (() -> Void)?
+    var userSelected: ((ChatCredentials?,String) -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -20,15 +20,20 @@ class ChatAddViewController: UIViewController{
         tableView.delegate = self
         chatAddConfiguration()
     }
+    
     func chatAddConfiguration(){
         viewModel.onSuccess = {result in
             self.users = result
+            print(result)
             self.tableView.reloadData()
-            print("suusss")
-        
+            print("success")
         }
         viewModel.onError = {error in
-            
+            print(error.localizedDescription)
+        }
+        viewModel.chatCheck = {chat, userId in
+            self.userSelected?(chat, userId)
+            print(chat ?? "boş")
         }
     }
     
@@ -41,20 +46,23 @@ extension ChatAddViewController: UITableViewDelegate,UITableViewDataSource{
     }
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatAddCell", for: indexPath) as? ChatAddCell else { return UITableViewCell()}
+         
         let user = users[indexPath.row]
         cell.cellConfigure(user: user)
         return cell
     }
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         self.userSelected?()
+         guard let user2ID = users[indexPath.row].id else{ print("user2id alınamadı");return}
+         viewModel.checkChat(user2Id: user2ID)
     }
 }
 extension ChatAddViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        guard let search = searchBar.text, search.isNotEmpty else{return}
-        viewModel.searchUser(mail: search)
+        guard let search = searchBar.text, search.isNotEmpty else{print("searchbar boş");return}
+        viewModel.searchUser(mail: search.lowercased())
     }
 }
