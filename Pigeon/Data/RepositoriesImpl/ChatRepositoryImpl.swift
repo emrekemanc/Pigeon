@@ -26,6 +26,8 @@ final class ChatRepositoryImpl: ChatRepository {
     func fetchUserChatIDs(userID: String, completion: @escaping (Result<[String], Error>) -> Void) {
         chatService.fetchUserChatIDs(userID: userID, completion: completion)
     }
-
+    func addChatIDToUsers(chatID: String, userIDs: [String], completion: @escaping (Result<Bool, Error>) -> Void){
+    
+    }
   
 }
