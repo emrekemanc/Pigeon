@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 struct MessageCredentials: Codable, Identifiable {
-    @DocumentID var id: String?
+    var id: String?
     var chat_id: String
     var sender_id: String
     var receiver_id: String
