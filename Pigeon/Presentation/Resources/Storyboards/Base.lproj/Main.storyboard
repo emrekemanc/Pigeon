@@ -264,15 +264,9 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="sendButtonPress:" destination="n2N-7q-5ZM" eventType="touchUpInside" id="edj-sQ-iWn"/>
+                                    <action selector="sendMessageTapped:" destination="n2N-7q-5ZM" eventType="touchUpInside" id="f7V-1o-pK5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szw-1t-mqm">
-                                <rect key="frame" x="80" y="61" width="59" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="e30-9I-coU"/>
                         <color key="backgroundColor" name="pigeonBackground"/>
@@ -282,21 +276,17 @@
                             <constraint firstItem="U4Q-Lx-Qmh" firstAttribute="leading" secondItem="YzK-Ik-AzD" secondAttribute="trailing" constant="20" id="QhI-ur-w1H"/>
                             <constraint firstItem="e30-9I-coU" firstAttribute="trailing" secondItem="qDy-HP-1No" secondAttribute="trailing" id="RbL-2N-F5d"/>
                             <constraint firstItem="U4Q-Lx-Qmh" firstAttribute="top" secondItem="qDy-HP-1No" secondAttribute="bottom" constant="20" id="VZ3-EL-anh"/>
-                            <constraint firstItem="szw-1t-mqm" firstAttribute="leading" secondItem="goP-ea-gnH" secondAttribute="leading" constant="80" id="aOy-TY-zib"/>
                             <constraint firstItem="YzK-Ik-AzD" firstAttribute="leading" secondItem="e30-9I-coU" secondAttribute="leading" constant="20" id="enV-hS-abp"/>
                             <constraint firstItem="e30-9I-coU" firstAttribute="trailing" secondItem="U4Q-Lx-Qmh" secondAttribute="trailing" constant="15" id="eua-mS-csc"/>
                             <constraint firstItem="qDy-HP-1No" firstAttribute="top" secondItem="e30-9I-coU" secondAttribute="top" id="tCs-gC-BAw"/>
-                            <constraint firstItem="szw-1t-mqm" firstAttribute="top" secondItem="goP-ea-gnH" secondAttribute="top" constant="61" id="uFh-ja-tzq"/>
                             <constraint firstItem="qDy-HP-1No" firstAttribute="leading" secondItem="e30-9I-coU" secondAttribute="leading" id="zdo-B1-Z7l"/>
                             <constraint firstAttribute="bottom" secondItem="YzK-Ik-AzD" secondAttribute="bottom" constant="50" id="zzk-sy-eCI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gwK-rA-Oja"/>
                     <connections>
-                        <outlet property="inputMessageView" destination="YzK-Ik-AzD" id="BRr-7L-Egu"/>
-                        <outlet property="messageListView" destination="qDy-HP-1No" id="gxQ-FE-Y4W"/>
-                        <outlet property="risiverName" destination="szw-1t-mqm" id="npT-O9-0hY"/>
-                        <outlet property="sendButton" destination="U4Q-Lx-Qmh" id="aF2-F4-oov"/>
+                        <outlet property="messageInput" destination="YzK-Ik-AzD" id="amW-WO-kyD"/>
+                        <outlet property="tableView" destination="qDy-HP-1No" id="hsz-Md-6wl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeP-jc-m17" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
