@@ -7,13 +7,30 @@
 
 final class MessageRepositoryImpl: MessageRepository{
     private let messageService: MessageService = MessageService()
-   
-    func sendMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, any Error>) -> Void) {
-        messageService.sendMessage(message, completion: completion)
+    func addMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, any Error>) -> Void) {
+        messageService.addMessage(message, completion: completion)
     }
     
-    func fetchMessages(for chat: ChatCredentials, completion: @escaping (Result<[MessageCredentials], any Error>) -> Void) {
-        messageService.fetchMessages(for: chat, completion: completion)
+    func fetchAllMessages(for chat: ChatCredentials, completion: @escaping (Result<[MessageCredentials], any Error>) -> Void) {
+        messageService.fetchAllMessages(for: chat, completion: completion)
     }
+    
+    func deleteMessage(withID id: String, completion: @escaping (Result<Bool, any Error>) -> Void) {
+        messageService.deleteMessage(withID: id, completion: completion)
+    }
+    
+    func deleteAllMessages(for chat: ChatCredentials, completion: @escaping (Result<Bool, any Error>) -> Void) {
+        messageService.deleteAllMessages(for: chat, completion: completion)
+    }
+    
+    func updateMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, any Error>) -> Void) {
+        messageService.updateMessage(message, completion: completion)
+    }
+    func fetchMessage(message_id: String, completion: @escaping (Result<MessageCredentials,Error>) -> Void){
+        messageService.fetchMessage(message_id: message_id, completion: completion)
+    }
+  
+   
+    
     
 }

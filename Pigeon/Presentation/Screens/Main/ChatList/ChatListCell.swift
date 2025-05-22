@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatAddCell: UITableViewCell {
+class ChatListCell: UITableViewCell {
 
     private let containerView: UIView = {
         let view = UIView()
