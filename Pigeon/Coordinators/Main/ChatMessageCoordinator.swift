@@ -17,7 +17,7 @@ class ChatMessageCoordinator: CoordinatorProtocol{
     func start() {
         let vc = storyBoard.instantiateViewController(withIdentifier: "ChatMessageViewController") as! ChatMessageViewController
         vc.chat = chat
-        vc.reciverId = reciverId
+        vc.receiverID = reciverId
         navigationController.pushViewController(vc, animated: true)
         
     }
