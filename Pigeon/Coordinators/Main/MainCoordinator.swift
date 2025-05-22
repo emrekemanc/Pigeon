@@ -26,7 +26,7 @@ class MainCoordinator: CoordinatorProtocol {
         chatListCoordinator?.start()
         settingsCoordinator?.start()
         
-        tabBarController.viewControllers = [chatAddCoordinator.navigationController, chatListCoordinator.navigationController, settingsCoordinator.navigationController]
+        tabBarController.viewControllers = [chatListCoordinator.navigationController, chatAddCoordinator.navigationController, settingsCoordinator.navigationController]
         navigationController.setViewControllers([tabBarController], animated: true)
     }
     

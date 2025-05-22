@@ -17,7 +17,9 @@ class ChatListCoordinator: CoordinatorProtocol{
     
     func start() {
         let vc = storyBoard.instantiateViewController(withIdentifier: "ChatListViewController") as! ChatListViewController
-        vc.tabBarItem = UITabBarItem(title: "Chat", image: UIImage(systemName: "gearshape"), tag: 0)
+        vc.title = "PIGEON"
+        vc.tabBarItem = UITabBarItem(title: "Chat", image: UIImage(systemName: "message"), tag: 0)
+        vc.tabBarItem.badgeColor = UIColor(.pigeonDark)
         navigationController.setViewControllers([vc], animated: false)
     }
     

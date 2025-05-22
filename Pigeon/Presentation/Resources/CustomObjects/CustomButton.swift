@@ -10,10 +10,10 @@ import UIKit
 @IBDesignable
 class CustomButton: UIButton {
 
-    @IBInspectable var cornerRadius: CGFloat = 8.0
-    @IBInspectable var borderWidth: CGFloat = 1.0
+    @IBInspectable var cornerRadius: CGFloat = 13.0
+    @IBInspectable var borderWidth: CGFloat = 0.7
     @IBInspectable var borderColor: UIColor = .pigeonDark
-    @IBInspectable var normalBackgroundColor: UIColor = .pigeonPrimary
+    @IBInspectable var normalBackgroundColor: UIColor = .pigeonBackground
     @IBInspectable var highlightedBackgroundColor: UIColor = .pigeonDark
     @IBInspectable var titleColor: UIColor = .white
 
