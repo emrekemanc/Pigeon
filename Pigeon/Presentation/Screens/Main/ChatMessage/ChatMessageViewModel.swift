@@ -18,6 +18,7 @@ class ChatMessageViewModel {
     var onNewMessageUpdate: ((MessageCredentials) -> Void)?
     var onShowError: ((Error) -> Void)?
     var fetchUserId: ((String) -> Void)?
+    var senderFetchd: ((UserCredentials) ->Void)?
     var onNewChat: ((ChatCredentials) -> Void)?
     var onMessageSent: (() -> Void)?
 
@@ -29,6 +30,17 @@ class ChatMessageViewModel {
             case .failure(let error):
                 self?.onShowError?(error)
                 print("Failed to fetch receiver user with ID \(receiver_id): \(error.localizedDescription)")
+            }
+        }
+    }
+    func senderUser(sender_id: String){
+        fetchUser.execute(uid: sender_id) { [weak self] result in
+            switch result {
+            case .success(let sender):
+                self?.senderFetchd?(sender)
+            case .failure(let error):
+                self?.onShowError?(error)
+                print("Failed to fetch sender user with ID \(sender_id): \(error.localizedDescription)")
             }
         }
     }

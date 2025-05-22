@@ -7,13 +7,15 @@
 
 import UIKit
 
-class ChatMessageViewController: UIViewController {
+class ChatMessageViewController: UIViewController, UITextViewDelegate {
     
+    @IBOutlet var mainView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageInput: CustomTextView!
     var receiverID: String?
     var chat: ChatCredentials?
     var currentUserID: String?
+    var senderUser: UserCredentials?
     private var messages: [MessageCredentials] = []
 
     private lazy var viewModel = ChatMessageViewModel()
@@ -28,10 +30,8 @@ class ChatMessageViewController: UIViewController {
         }
         viewModel.fetchCurentUserId()
         viewModel.receiverUser(receiver_id: receiverID)
-        if let chat = chat {
-            viewModel.fetchAllMessages(chat: chat)
-            viewModel.observeMessage(chat: chat)
-        }
+        
+       
     }
 
     private func configureUI() {
@@ -39,6 +39,7 @@ class ChatMessageViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .interactive
+        messageInput.delegate = self
     }
 
     private func bindViewModel() {
@@ -50,6 +51,7 @@ class ChatMessageViewController: UIViewController {
         viewModel.fetchUserId = {[weak self] uid in
             DispatchQueue.main.async{
                 self?.currentUserID = uid
+                self?.viewModel.senderUser(sender_id: uid )
             }
         }
 
@@ -76,6 +78,15 @@ class ChatMessageViewController: UIViewController {
         viewModel.onNewChat = { [weak self] newChat in
             self?.chat = newChat
             self?.viewModel.observeMessage(chat: newChat)
+        }
+        viewModel.senderFetchd = {[weak self] user in
+            DispatchQueue.main.async {
+                self?.senderUser = user
+                if let chat = self?.chat {
+                    self?.viewModel.fetchAllMessages(chat: chat)
+                    self?.viewModel.observeMessage(chat: chat)
+                }
+            }
         }
         
     }
@@ -112,6 +123,14 @@ class ChatMessageViewController: UIViewController {
         viewModel.sendMessages(message: message, chat: chat)
         messageInput.text = ""
     }
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            sendMessageTapped(CustomButton())
+            return false
+        }
+        return true
+    }
+
 }
 
 extension ChatMessageViewController: UITableViewDataSource, UITableViewDelegate {
@@ -123,11 +142,13 @@ extension ChatMessageViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let msg = messages[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatMessageCell", for: indexPath) as! ChatMessageCell
-        guard let currentUserID = currentUserID else {
-            print("Current user ID is nil during cell configuration.")
+        guard let senderUser = senderUser else {
+            print("Sender User ID is nil. Cannot proceed.")
             return cell
         }
-        cell.cellConfigure(message: msg, selfId: currentUserID)
+        cell.cellConfigure(message: msg, selfUser: senderUser)
         return cell
     }
 }
+
+    

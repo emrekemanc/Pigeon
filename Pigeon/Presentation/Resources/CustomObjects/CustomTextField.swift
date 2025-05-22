@@ -9,12 +9,12 @@ import UIKit
 @IBDesignable
 class CustomTextField: UITextField {
 
-    @IBInspectable var cornerRadius: CGFloat = 5.0
-    @IBInspectable var borderWidth: CGFloat = 1.0
+    @IBInspectable var cornerRadius: CGFloat = 13.0
+    @IBInspectable var borderWidth: CGFloat = 0.7
     @IBInspectable var borderColor: UIColor = .pigeonDark
     @IBInspectable var focusShadowColor: UIColor = .black
     @IBInspectable var placeholderColor: UIColor = .pigeonDark
-    @IBInspectable var backgroundColors: UIColor = .pigeonPrimary
+    @IBInspectable var backgroundColors: UIColor = .pigeonBackground
     var errorColor: UIColor = .pigeonError
     var errorFont: UIFont = UIFont.systemFont(ofSize: 12)
     var errorTextColor: UIColor = .red

@@ -10,10 +10,10 @@ import UIKit
 @IBDesignable
 class CustomTextView: UITextView {
 
-    @IBInspectable var cornerRadius: CGFloat = 16.0
-    @IBInspectable var borderWidth: CGFloat = 1.0
+    @IBInspectable var cornerRadius: CGFloat = 13.0
+    @IBInspectable var borderWidth: CGFloat = 0.7
     @IBInspectable var borderColor: UIColor = .pigeonDark
-    @IBInspectable var backgroundColors: UIColor = .pigeonPrimary
+    @IBInspectable var backgroundColors: UIColor = .pigeonBackground
     @IBInspectable var placeholder: String = "Enter message..."
     @IBInspectable var placeholderColor: UIColor = .pigeonDark
     @IBInspectable var focusShadowColor: UIColor = .black
