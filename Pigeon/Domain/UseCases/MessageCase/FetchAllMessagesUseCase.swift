@@ -5,12 +5,12 @@
 //  Created by Muhammet Emre Kemancı on 19.05.2025.
 //
 
-final class SendMessageUseCase{
+final class FetchAllMessagesUseCase{
     private let repository: MessageRepository
     init(repository: MessageRepository) {
         self.repository = repository
     }
-    func execute(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, Error>) -> Void){
-        repository.sendMessage(message, completion: completion)
+    func execute(for chat: ChatCredentials, completion: @escaping (Result<[MessageCredentials], any Error>) -> Void){
+        repository.fetchAllMessages(for: chat, completion: completion)
     }
 }

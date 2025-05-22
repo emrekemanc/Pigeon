@@ -12,7 +12,7 @@ final class ChatService {
     
     private let db = Firestore.firestore()
     private let chatsCollection = "chats"
-    private let usersCollection = "users"
+    private let usersCollection = "Users"
     
     
     func fetchUserChatIDs(userID: String, completion: @escaping (Result<[String], Error>) -> Void) {
@@ -124,9 +124,9 @@ final class ChatService {
         for userID in userIDs {
             group.enter()
             let userRef = db.collection(usersCollection).document(userID)
-            userRef.updateData([
+            userRef.setData([
                 "chat_ids": FieldValue.arrayUnion([chatID])
-            ]) { error in
+            ], merge: true) { error in
                 if let error = error {
                     print("Chat ID eklenirken hata oluştu (\(userID)): \(error.localizedDescription)")
                     lastError = error

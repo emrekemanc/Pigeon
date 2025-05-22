@@ -172,11 +172,11 @@
                                 <rect key="frame" x="0.0" y="118" width="393" height="614"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ChatMessageCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatMessageCell" rowHeight="114" id="oYg-Qo-jS0" customClass="ChatMessageCell" customModule="Pigeon" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="114"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ChatMessageCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatMessageCell" rowHeight="106" id="oYg-Qo-jS0" customClass="ChatMessageCell" customModule="Pigeon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="106"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oYg-Qo-jS0" id="faz-75-5KF">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="114"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95Z-au-44Z">
@@ -200,13 +200,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYH-rq-j4l">
-                                                    <rect key="frame" x="146" y="41" width="177" height="20.333333333333329"/>
+                                                    <rect key="frame" x="146" y="41" width="177" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEQ-Km-baj">
-                                                    <rect key="frame" x="70" y="41" width="177" height="20.333333333333329"/>
+                                                    <rect key="frame" x="70" y="41" width="177" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -219,6 +219,8 @@
                                                 <constraint firstItem="HYH-rq-j4l" firstAttribute="leading" secondItem="faz-75-5KF" secondAttribute="leadingMargin" constant="126" id="89L-7s-k5K"/>
                                                 <constraint firstItem="HYH-rq-j4l" firstAttribute="top" secondItem="faz-75-5KF" secondAttribute="topMargin" constant="30" id="IEY-CI-4Dg"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yEQ-Km-baj" secondAttribute="trailing" constant="126" id="Jf0-Lo-kpr"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HYH-rq-j4l" secondAttribute="bottom" constant="30" id="TQS-ZR-Q6I"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="yEQ-Km-baj" secondAttribute="bottom" constant="30" id="Vbg-3i-dQQ"/>
                                                 <constraint firstItem="yEQ-Km-baj" firstAttribute="leading" secondItem="95Z-au-44Z" secondAttribute="trailing" constant="10" id="XrK-M4-Fyh"/>
                                                 <constraint firstItem="95Z-au-44Z" firstAttribute="top" secondItem="faz-75-5KF" secondAttribute="topMargin" constant="20" id="dlp-Ni-gsb"/>
                                                 <constraint firstItem="IOx-Ae-cP3" firstAttribute="leading" secondItem="HYH-rq-j4l" secondAttribute="trailing" constant="10" id="iiI-UX-qpW"/>
@@ -262,15 +264,9 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="sendButtonPress:" destination="n2N-7q-5ZM" eventType="touchUpInside" id="edj-sQ-iWn"/>
+                                    <action selector="sendMessageTapped:" destination="n2N-7q-5ZM" eventType="touchUpInside" id="f7V-1o-pK5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szw-1t-mqm">
-                                <rect key="frame" x="80" y="61" width="59" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="e30-9I-coU"/>
                         <color key="backgroundColor" name="pigeonBackground"/>
@@ -280,21 +276,17 @@
                             <constraint firstItem="U4Q-Lx-Qmh" firstAttribute="leading" secondItem="YzK-Ik-AzD" secondAttribute="trailing" constant="20" id="QhI-ur-w1H"/>
                             <constraint firstItem="e30-9I-coU" firstAttribute="trailing" secondItem="qDy-HP-1No" secondAttribute="trailing" id="RbL-2N-F5d"/>
                             <constraint firstItem="U4Q-Lx-Qmh" firstAttribute="top" secondItem="qDy-HP-1No" secondAttribute="bottom" constant="20" id="VZ3-EL-anh"/>
-                            <constraint firstItem="szw-1t-mqm" firstAttribute="leading" secondItem="goP-ea-gnH" secondAttribute="leading" constant="80" id="aOy-TY-zib"/>
                             <constraint firstItem="YzK-Ik-AzD" firstAttribute="leading" secondItem="e30-9I-coU" secondAttribute="leading" constant="20" id="enV-hS-abp"/>
                             <constraint firstItem="e30-9I-coU" firstAttribute="trailing" secondItem="U4Q-Lx-Qmh" secondAttribute="trailing" constant="15" id="eua-mS-csc"/>
                             <constraint firstItem="qDy-HP-1No" firstAttribute="top" secondItem="e30-9I-coU" secondAttribute="top" id="tCs-gC-BAw"/>
-                            <constraint firstItem="szw-1t-mqm" firstAttribute="top" secondItem="goP-ea-gnH" secondAttribute="top" constant="61" id="uFh-ja-tzq"/>
                             <constraint firstItem="qDy-HP-1No" firstAttribute="leading" secondItem="e30-9I-coU" secondAttribute="leading" id="zdo-B1-Z7l"/>
                             <constraint firstAttribute="bottom" secondItem="YzK-Ik-AzD" secondAttribute="bottom" constant="50" id="zzk-sy-eCI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gwK-rA-Oja"/>
                     <connections>
-                        <outlet property="inputMessageView" destination="YzK-Ik-AzD" id="BRr-7L-Egu"/>
-                        <outlet property="messageListView" destination="qDy-HP-1No" id="gxQ-FE-Y4W"/>
-                        <outlet property="risiverName" destination="szw-1t-mqm" id="npT-O9-0hY"/>
-                        <outlet property="sendButton" destination="U4Q-Lx-Qmh" id="aF2-F4-oov"/>
+                        <outlet property="messageInput" destination="YzK-Ik-AzD" id="amW-WO-kyD"/>
+                        <outlet property="tableView" destination="qDy-HP-1No" id="hsz-Md-6wl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CeP-jc-m17" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
