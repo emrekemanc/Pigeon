@@ -18,7 +18,9 @@ class ChatAddCoordinator: CoordinatorProtocol{
         vc.userSelected = { chat,reciverId in
             self.selectedUser?(chat,reciverId)
         }
-        vc.tabBarItem = UITabBarItem(title: "Add Chat", image: UIImage(systemName: "plus"), tag: 1)
+        vc.title = "PIGEON"
+        vc.tabBarItem = UITabBarItem(title: "New Chat", image: UIImage(systemName: "plus"), tag: 1)
+        vc.tabBarItem.badgeColor = UIColor(.pigeonDark)
         navigationController.setViewControllers([vc], animated: false)
         
     }

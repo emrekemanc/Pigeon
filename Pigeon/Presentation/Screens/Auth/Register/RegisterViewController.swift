@@ -1,7 +1,7 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController{
+class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mailTextField: CustomTextField!
     @IBOutlet weak var passwordTextField: CustomTextField!
     @IBOutlet weak var fullnameTextField: CustomTextField!
@@ -11,7 +11,15 @@ class RegisterViewController: UIViewController{
     var onLogin: (() -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerConfiguration()    }
+        registerConfiguration()
+
+        fullnameTextField.delegate = self
+        mailTextField.delegate = self
+        passwordTextField.delegate = self
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
     
     func registerConfiguration(){
         viewModel.onSuccess = { success in
@@ -36,6 +44,22 @@ class RegisterViewController: UIViewController{
         sender.showLoading(true, disableWhileLoading: true)
         viewModel.register(authCredentials: AuthCredentials(email: mail, password: password), userCredentials: UserCredentials(fullname: fullname, email: mail.lowercased(), created_at: Date(), updated_at: Date(), chat_ids: []))
         
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == fullnameTextField {
+            mailTextField.becomeFirstResponder()
+        } else if textField == mailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            registerButtonPress(registerButton)
+        }
+        return true
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     private func validateValue() -> Bool{

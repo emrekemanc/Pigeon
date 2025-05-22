@@ -53,6 +53,21 @@ final class MessageService {
                 completion(.success(messages))
             }
     }
+    func fetchMessage(message_id: String, completion: @escaping (Result<MessageCredentials,Error>) -> Void){
+        db.collection(messagesCollection).document(message_id).getDocument { snapshot, error in
+            if let error = error{
+                completion(.failure(error))
+                return
+            }
+            do{guard let snapshot = snapshot else{print("snapshot dosent catch"); return}
+                let message = try snapshot.data(as: MessageCredentials.self)
+                completion(.success(message))
+            }catch{
+                completion(.failure(error))
+            }
+        }
+    }
+    
     func deleteMessage(withID id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         db.collection(messagesCollection).document(id).delete { error in
             if let error = error {
