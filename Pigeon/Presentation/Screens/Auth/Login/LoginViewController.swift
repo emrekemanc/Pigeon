@@ -2,7 +2,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var mailTextField: CustomTextField!
     @IBOutlet weak var passwordTextField: CustomTextField!
     @IBOutlet weak var loginButton: CustomButton!
@@ -12,6 +12,11 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        mailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
         loginConfiguration()
     }
 
@@ -37,8 +42,18 @@ class LoginViewController: UIViewController {
         viewModel.login(with: AuthCredentials(email: mail.lowercased(), password: password))
     }
     
-    
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == mailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            loginButtonPress(loginButton)
+        }
+        return true
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     @IBAction func mailViewer(_ sender: CustomTextField) {
         
     }
@@ -66,4 +81,5 @@ class LoginViewController: UIViewController {
     @IBAction func signUpPress(_ sender: UIButton) {
         self.onRegister?()
     }
+    
 }
