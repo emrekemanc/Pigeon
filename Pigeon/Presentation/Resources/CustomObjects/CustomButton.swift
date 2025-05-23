@@ -15,9 +15,10 @@ class CustomButton: UIButton {
     @IBInspectable var borderColor: UIColor = .pigeonDark
     @IBInspectable var normalBackgroundColor: UIColor = .pigeonBackground
     @IBInspectable var highlightedBackgroundColor: UIColor = .pigeonDark
-    @IBInspectable var titleColor: UIColor = .white
+    @IBInspectable var titleColor: UIColor = .pigeonDark
 
     private var originalTitle: String?
+    private var originalTitleColor: UIColor?
     private var spinner: UIActivityIndicatorView?
 
 
@@ -62,7 +63,10 @@ class CustomButton: UIButton {
 
     func showLoading(_ loading: Bool, disableWhileLoading: Bool = true) {
         if loading {
-            originalTitle = title(for: .normal)
+            if originalTitle == nil {
+                originalTitle = title(for: .normal)
+                originalTitleColor = titleColor(for: .normal)
+            }
             setTitle("", for: .normal)
 
             if spinner == nil {
@@ -88,6 +92,24 @@ class CustomButton: UIButton {
                 isEnabled = true
             }
         }
+    }
+
+    func resetToOriginalState(title: String) {
+        spinner?.stopAnimating()
+        spinner?.removeFromSuperview()
+        spinner = nil
+
+        setTitle(title, for: .normal)
+        if let color = originalTitleColor {
+            setTitleColor(color, for: .normal)
+        } else {
+            setTitleColor(.pigeonDark, for: .normal)
+        }
+        isEnabled = true
+        transform = .identity
+        backgroundColor = normalBackgroundColor
+        originalTitle = nil
+        originalTitleColor = nil
     }
     func shake() {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")

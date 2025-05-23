@@ -23,12 +23,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func loginConfiguration() {
         viewModel.onSuccess = { success in
             self.onLoginSuccess?()
-            self.loginButton.showLoading(false, disableWhileLoading: false)
+            self.loginButton.resetToOriginalState(title: "Login")
         }
 
         viewModel.onError = { error in
             self.loginButton.shake()
-            self.loginButton.showLoading(false, disableWhileLoading: false)
+            self.loginButton.resetToOriginalState(title: "Login")
             self.fieldForFirebaseError(error)
             
         }
@@ -38,7 +38,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         guard let mail = mailTextField.text, mail.isNotEmpty else{mailTextField.showError(message: ValidationError.emptyEmail.localizedDescription); sender.shake(); return}
         mailTextField.hideError()
         guard let password = passwordTextField.text, password.isNotEmpty else {passwordTextField.showError(message: ValidationError.emptyPassword.localizedDescription); sender.shake(); return}
-        sender.showLoading(true, disableWhileLoading: true)
+        sender.resetToOriginalState(title: "Login")
+        sender.showLoading(true)
         viewModel.login(with: AuthCredentials(email: mail.lowercased(), password: password))
     }
     

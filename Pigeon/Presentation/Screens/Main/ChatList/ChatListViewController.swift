@@ -25,6 +25,9 @@ class ChatListViewController: UIViewController{
         configure()
         viewModel.startFetch()
     }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     func configure(){
         viewModel.onFetchSuccess = {[weak self] chatList in
             DispatchQueue.main.async {
