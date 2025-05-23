@@ -17,6 +17,7 @@ class SettingsViewController: UIViewController{
         super.viewDidLoad()
         settingsConfiguration()
         viewModel.fetchUser()
+        
     }
     func settingsConfiguration(){
         viewModel.onSuccess = {[weak self] success in

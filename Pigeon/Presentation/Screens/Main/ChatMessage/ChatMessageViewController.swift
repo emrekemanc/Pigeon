@@ -30,7 +30,8 @@ class ChatMessageViewController: UIViewController, UITextViewDelegate {
         }
         viewModel.fetchCurentUserId()
         viewModel.receiverUser(receiver_id: receiverID)
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
        
     }
     @objc func dismissKeyboard() {
