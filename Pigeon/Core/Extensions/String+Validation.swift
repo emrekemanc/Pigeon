@@ -8,15 +8,31 @@
 import Foundation
 
 extension String{
-    func isValidEmail() -> Bool{
+    
+    
+    func isValidEmail() -> ValidationError?{
+        guard self.isNotEmpty else{return ValidationError.emptyEmail}
+        
         let emailRegex = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
-        return NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: self)
+        guard NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: self) else {return ValidationError.invalidEmailFormat}
+        
+        return nil
     }
-    func isValidPassword() -> Bool{
+    
+    func isValidPassword() -> ValidationError?{
+        guard self.isNotEmpty else {return ValidationError.emptyPassword}
         let passwordRegex = #"^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}|:;<>,.?/~`\$begin:math:display$$end:math:display$-]).{8,}$"#
-        return NSPredicate(format: "SELF MATCHES %@",passwordRegex).evaluate(with: self)
+        guard NSPredicate(format: "SELF MATCHES %@",passwordRegex).evaluate(with: self) else{return ValidationError.weakPassword}
+        return nil
     }
+    
+    func isValidFullname() -> ValidationError?{
+        guard self.isNotEmpty else {return ValidationError.emptyFullName}
+        return nil
+    }
+    
     var isNotEmpty: Bool {
             return !self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
+    
 }

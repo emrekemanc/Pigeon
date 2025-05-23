@@ -8,14 +8,4 @@
 struct AuthCredentials {
     let email: String
     let password: String
-
-    var validationError: AuthError? {
-        if !email.isValidEmail() {
-            return .invalidEmail
-        }
-        if !password.isValidPassword() {
-            return .weakPassword
-        }
-        return nil
-    }
 }

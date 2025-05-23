@@ -7,5 +7,8 @@
 
 protocol AuthRepository{
     func login(authCredentials: AuthCredentials,completion: @escaping(Result<Bool,Error>) -> Void)
-    func register(authCredentials: AuthCredentials,completion: @escaping(Result<Bool,Error>) -> Void)
+    func register(authCredentials: AuthCredentials,completion: @escaping(Result<String,Error>) -> Void)
+    func delete(completion: @escaping(Result<Bool,Error>) -> Void)
+    func signOut(completion: @escaping(Result<Bool,Error>) -> Void)
+    func fetchUserId(completion: @escaping(Result<String,Error>) -> Void)
 }
