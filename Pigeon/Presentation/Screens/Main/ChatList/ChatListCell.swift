@@ -1,5 +1,5 @@
 //
-//  ChatAddcCell.swift
+//  ChatListCell.swift
 //  Pigeon
 //
 //  Created by Muhammet Emre Kemancı on 18.05.2025.
