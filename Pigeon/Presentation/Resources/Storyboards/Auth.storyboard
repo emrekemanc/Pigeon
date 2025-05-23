@@ -29,6 +29,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+
                                 <connections>
                                     <action selector="mailViewer:" destination="Y6W-OH-hqX" eventType="editingDidEnd" id="5Th-VX-Ta5"/>
                                 </connections>
@@ -39,7 +40,9 @@
                                     <constraint firstAttribute="height" constant="60" id="Mi8-Id-9tT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
+
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgb-AW-vNf">
                                 <rect key="frame" x="27" y="732" width="339" height="32"/>
@@ -126,7 +129,9 @@
                                     <constraint firstAttribute="height" constant="60" id="31v-kT-xsT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
+
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hkO-FI-WhD" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
                                 <rect key="frame" x="15" y="438" width="363" height="60"/>
@@ -134,7 +139,9 @@
                                     <constraint firstAttribute="height" constant="60" id="PIp-fl-D4T"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
+
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="new-password"/>
+
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUb-DN-i9H" customClass="CustomButton" customModule="Pigeon" customModuleProvider="target">
                                 <rect key="frame" x="60" y="672" width="273" height="40"/>
