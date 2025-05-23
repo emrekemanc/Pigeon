@@ -17,7 +17,9 @@ class SettingsCoordinator: CoordinatorProtocol{
         vc.onSignOut = {
             self.onLogOut?()
         }
+        vc.title = "PIGEON"
         vc.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gearshape"), tag: 2)
+        vc.tabBarItem.badgeColor = UIColor(.pigeonDark)
         navigationController.setViewControllers([vc], animated: false)
     }
     
