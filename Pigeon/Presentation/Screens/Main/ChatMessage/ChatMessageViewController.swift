@@ -150,5 +150,3 @@ extension ChatMessageViewController: UITableViewDataSource, UITableViewDelegate 
         return cell
     }
 }
-
-    
