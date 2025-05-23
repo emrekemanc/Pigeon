@@ -24,12 +24,12 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     func registerConfiguration(){
         viewModel.onSuccess = { success in
             print(success)
-            self.registerButton.showLoading(false,disableWhileLoading: false)
+            self.registerButton.resetToOriginalState(title: "Register")
             self.onRegisterSuccess?()
             
         }
         viewModel.onError = {error in
-            self.registerButton.showLoading(false,disableWhileLoading: false)
+            self.registerButton.resetToOriginalState(title: "Register")
             self.registerButton.shake()
             self.fieldForFirebaseError(error)
         }
@@ -41,7 +41,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         let mail = mailTextField.text!
         let fullname = fullnameTextField.text!
         let password = passwordTextField.text!
-        sender.showLoading(true, disableWhileLoading: true)
+        sender.showLoading(true)
         viewModel.register(authCredentials: AuthCredentials(email: mail, password: password), userCredentials: UserCredentials(fullname: fullname, email: mail.lowercased(), created_at: Date(), updated_at: Date(), chat_ids: []))
         
     }
