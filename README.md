@@ -31,14 +31,14 @@ This app is integrated with several Firebase services:
 
 ##  Screenshots
 
-![Launch Screen](screenshots/LaunchSecren.png)
-![Login Screen](screenshots/Login.png)
-![Login 2 Screen](screenshots/Login2.png)
-![Register Screen](screenshots/Register.png)
-![ChatList Screen](screenshots/ChatList.png)
-![Settings Screen](screenshots/Settings.png)
-![Chat Screen](screenshots/Chat.png)
-![Chat 2 Screen](screenshots/Chat2.png)
+![Launch Screen](Pigeon/screenshots/LaunchSecren.png)
+![Login Screen](Pigeon/screenshots/Login.png)
+![Login 2 Screen](Pigeon/screenshots/Login2.png)
+![Register Screen](Pigeon/screenshots/Register.png)
+![ChatList Screen](Pigeon/screenshots/ChatList.png)
+![Settings Screen](Pigeon/screenshots/Settings.png)
+![Chat Screen](Pigeon/screenshots/Chat.png)
+![Chat 2 Screen](Pigeon/screenshots/Chat2.png)
 
 
 ---
