@@ -33,7 +33,9 @@ class ChatMessageViewController: UIViewController, UITextViewDelegate {
         
        
     }
-
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     private func configureUI() {
         tableView.delegate = self
         tableView.dataSource = self

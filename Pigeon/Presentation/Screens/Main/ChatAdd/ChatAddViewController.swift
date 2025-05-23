@@ -20,7 +20,9 @@ class ChatAddViewController: UIViewController{
         tableView.delegate = self
         chatAddConfiguration()
     }
-    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     func chatAddConfiguration(){
         viewModel.onSuccess = {result in
             self.users = result
