@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController{
         viewModel.onfetchUser = {[weak self] user in
             self?.nameLabel.text = "Full Name: \(user.fullname)"
             self?.mailLabel.text = "Mail: \(user.email)"
-            self?.createdLabel.text = "Created at: \(String(describing: self?.formatTimestamp(user.created_at)))"
+            self?.createdLabel.text = "Created at: \(self?.formatTimestamp(user.created_at) ?? "00/00/0000")"
             
         }
         
@@ -37,7 +37,7 @@ class SettingsViewController: UIViewController{
     private func formatTimestamp(_ timestamp: Date?) -> String {
         guard let timestamp = timestamp else { return "" }
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH/mm/yyyy"
+        formatter.dateFormat = "dd/MM/YYYY"
         return formatter.string(from: timestamp)
     }
     @IBAction func signOutPress(_ sender: UIButton) {
