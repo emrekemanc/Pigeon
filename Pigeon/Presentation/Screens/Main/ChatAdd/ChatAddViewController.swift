@@ -19,6 +19,8 @@ class ChatAddViewController: UIViewController{
         tableView.dataSource = self
         tableView.delegate = self
         chatAddConfiguration()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     @objc func dismissKeyboard() {
         view.endEditing(true)
