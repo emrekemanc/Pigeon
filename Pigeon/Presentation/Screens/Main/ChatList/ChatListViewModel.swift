@@ -15,7 +15,7 @@ class ChatListViewModel{
     private let fetchUser: FetchUserUseCase = FetchUserUseCase(repository: UserRepositoryImpl())
     var onError: ((Error)->Void)?
     var onFetchSuccess: (([String]) -> Void)?
-    var onFetchUserContent: ((UserCredentials)-> Void)?
+    var onFetchUserContent: ((String, UserCredentials) -> Void)?
     var onFetchChat: ((ChatCredentials) -> Void)?
     var onCurrentUserId: ((String) -> Void)?
     
@@ -35,6 +35,7 @@ class ChatListViewModel{
             switch result{
             case .success(let uid):
                 self?.onCurrentUserId?(uid)
+                print(uid)
                 self?.fetchChatsId(currentUser: uid)
                 print("Fetch Current user")
             case .failure(let error):
@@ -56,20 +57,20 @@ class ChatListViewModel{
             }
         }
     }
-    func receiverContent(chat: ChatCredentials, current_uid: String){
-        if chat.user1_id == current_uid{
-            self.fetchUserContent(uid: chat.user2_id)
-        } else if chat.user2_id == current_uid{
-            self.fetchUserContent(uid: chat.user1_id)
-        }else{
-            
+    func receiverContent(chat: ChatCredentials, current_uid: String) {
+        if chat.user1_id == current_uid {
+            self.fetchUserContent(chatId: chat.id!, uid: chat.user2_id)
+        } else if chat.user2_id == current_uid {
+            self.fetchUserContent(chatId: chat.id!, uid: chat.user1_id)
+        } else {
+            // No matching user
         }
     }
-    func fetchUserContent(uid: String){
-        self.fetchUser.execute(uid: uid) {[weak self] result in
-            switch result{
+    func fetchUserContent(chatId: String, uid: String) {
+        self.fetchUser.execute(uid: uid) { [weak self] result in
+            switch result {
             case .success(let receiver):
-                self?.onFetchUserContent?(receiver)
+                self?.onFetchUserContent?(chatId, receiver)
             case .failure(let error):
                 self?.onError?(error)
             }

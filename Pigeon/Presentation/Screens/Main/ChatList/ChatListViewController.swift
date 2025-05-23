@@ -9,13 +9,19 @@ class ChatListViewController: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     private let viewModel: ChatListViewModel = ChatListViewModel()
     private var chatIds: [String] = []
-    private var receivers: [UserCredentials] = []
+    private var receiverMap: [String: UserCredentials] = [:]
+    private var receiverId: String?
     private var currentUserId: String?
     var userSelected: ((ChatCredentials?,String) -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        configure()
+        viewModel.startFetch()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         configure()
         viewModel.startFetch()
     }
@@ -37,7 +43,10 @@ class ChatListViewController: UIViewController{
         }
         viewModel.onFetchChat = {[weak self] chat in
             DispatchQueue.main.async {
-                guard let uid = self?.currentUserId else{ return}
+                guard let uid = self?.receiverId else {return}
+                print(self?.chatIds)
+                print(self?.receiverMap)
+                
                 self?.userSelected?(chat, uid)
             }
         }
@@ -46,9 +55,9 @@ class ChatListViewController: UIViewController{
                 self?.currentUserId = uid
             }
         }
-        viewModel.onFetchUserContent = {[weak self] receiver in
+        viewModel.onFetchUserContent = { [weak self] (chatId: String, receiver: UserCredentials) in
             DispatchQueue.main.async {
-                self?.receivers.append(receiver)
+                self?.receiverMap[chatId] = receiver
                 self?.tableView.reloadData()
             }
         }
@@ -58,7 +67,7 @@ class ChatListViewController: UIViewController{
 
 extension ChatListViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        receivers.count
+        chatIds.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,19 +75,26 @@ extension ChatListViewController: UITableViewDelegate,UITableViewDataSource{
             return UITableViewCell()
         }
         
-        let user = receivers[indexPath.row]
-        print(user.email)
-        cell.usernameLabel.text = user.fullname
-        if let first = user.fullname.first {
-            cell.initialsLabel.text = String(first).uppercased()
+        let chatId = chatIds[indexPath.row]
+        if let user = receiverMap[chatId] {
+            print(user.email)
+            cell.usernameLabel.text = user.fullname
+            if let first = user.fullname.first {
+                cell.initialsLabel.text = String(first).uppercased()
+            } else {
+                cell.initialsLabel.text = "?"
+            }
         } else {
+            cell.usernameLabel.text = ""
             cell.initialsLabel.text = "?"
         }
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.chatFetch(chat_id: chatIds[indexPath.row])
+        let chatId = chatIds[indexPath.row]
+        receiverId = receiverMap[chatId]?.id
+        viewModel.chatFetch(chat_id: chatId)
     }
     
     
