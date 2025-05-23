@@ -1,5 +1,5 @@
 //
-//  ChatAddcCell.swift
+//  ChatListCell.swift
 //  Pigeon
 //
 //  Created by Muhammet Emre Kemancı on 18.05.2025.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatAddCell: UITableViewCell {
+class ChatListCell: UITableViewCell {
 
     private let containerView: UIView = {
         let view = UIView()

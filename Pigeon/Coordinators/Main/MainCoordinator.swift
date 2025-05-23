@@ -14,10 +14,13 @@ class MainCoordinator: CoordinatorProtocol {
    
     func start() {
             chatAddCoordinator = ChatAddCoordinator(navigationController: UINavigationController())
-        chatAddCoordinator.selectedUser = { chat, reciverId in
+            chatAddCoordinator.selectedUser = { chat, reciverId in
             self.showChatMessage(chat: chat,reciverId: reciverId)
         }
             chatListCoordinator = ChatListCoordinator(navigationController: UINavigationController())
+        chatListCoordinator.selectedUser = { chat, reciverId in
+            self.showChatMessage(chat: chat,reciverId: reciverId)
+        }
             settingsCoordinator = SettingsCoordinator(navigationController: UINavigationController())
         settingsCoordinator?.onLogOut = {
             self.onLogout?()
@@ -26,7 +29,7 @@ class MainCoordinator: CoordinatorProtocol {
         chatListCoordinator?.start()
         settingsCoordinator?.start()
         
-        tabBarController.viewControllers = [chatAddCoordinator.navigationController, chatListCoordinator.navigationController, settingsCoordinator.navigationController]
+        tabBarController.viewControllers = [chatListCoordinator.navigationController, chatAddCoordinator.navigationController, settingsCoordinator.navigationController]
         navigationController.setViewControllers([tabBarController], animated: true)
     }
     
