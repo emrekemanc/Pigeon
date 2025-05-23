@@ -31,12 +31,15 @@ This app is integrated with several Firebase services:
 
 ##  Screenshots
 
->  Screenshots will be added later. Example usage:
+![Launch Screen](screenshots/LaunchSecren.png)
+![Login Screen](screenshots/Login.png)
+![Login 2 Screen](screenshots/Login2.png)
+![Register Screen](screenshots/Register.png)
+![ChatList Screen](screenshots/ChatList.png)
+![Settings Screen](screenshots/Settings.png)
+![Chat Screen](screenshots/Chat.png)
+![Chat 2 Screen](screenshots/Chat2.png)
 
-```markdown
-![Login Screen](screenshots/login.png)
-![Chat Screen](screenshots/chat.png)
-```
 
 ---
 
