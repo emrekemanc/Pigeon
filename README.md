@@ -1,6 +1,6 @@
 #  Pigeon – Real-Time Messaging App
 
-Pigeon is a modern iOS application that enables users to message each other in real time. Built with Firebase, it follows a clean architecture and adheres to MVVM principles.
+Pigeon is a modern IOS application that enables users to message each other in real time. Built with Firebase, it follows a clean architecture and adheres to MVVM principles.
 
 ---
 
