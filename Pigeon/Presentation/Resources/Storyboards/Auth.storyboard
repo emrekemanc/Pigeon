@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -209,6 +210,125 @@
             </objects>
             <point key="canvasLocation" x="888" y="-2"/>
         </scene>
+        <!--Phone Verification View Controller-->
+        <scene sceneID="syY-ME-cSN">
+            <objects>
+                <viewController storyboardIdentifier="PhoneVerificationViewController" id="58d-gz-C9i" customClass="PhoneVerificationViewController" customModule="Pigeon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hxw-4A-zsx">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="6NZ-iH-Wmh">
+                                <rect key="frame" x="30" y="167.99999999999997" width="333" height="338.33333333333326"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMS Verification" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPi-Kf-Lfp">
+                                        <rect key="frame" x="0.0" y="0.0" width="333" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <color key="textColor" name="pigeonDark"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="center" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WTq-BK-9Tl">
+                                        <rect key="frame" x="0.0" y="80" width="333" height="100"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lBT-AW-aMX" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="75.666666666666671" height="100"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="rNY-vA-HAL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="otpPress:" destination="58d-gz-C9i" eventType="editingDidEnd" id="nH0-Th-Nza"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gHK-7s-95T" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
+                                                <rect key="frame" x="85.666666666666671" y="0.0" width="76.000000000000014" height="100"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="Vvy-Ms-m3R"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="otpPress:" destination="58d-gz-C9i" eventType="editingDidEnd" id="aJF-lm-LMy"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r5P-kG-N4O" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
+                                                <rect key="frame" x="171.66666666666666" y="0.0" width="75.666666666666657" height="100"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="UBv-d2-kBd"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="otpPress:" destination="58d-gz-C9i" eventType="editingDidEnd" id="8Ha-OM-fS8"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sij-Ym-cNg" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
+                                                <rect key="frame" x="257.33333333333331" y="0.0" width="75.666666666666686" height="100"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="Z4o-YV-26k"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="otpPress:" destination="58d-gz-C9i" eventType="editingDidEnd" id="u7u-rV-Puo"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8Y-lm-06O">
+                                        <rect key="frame" x="0.0" y="230" width="333" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MaY-WB-gjd" customClass="CustomButton" customModule="Pigeon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="300.33333333333331" width="333" height="38"/>
+                                        <color key="tintColor" name="pigeonDark"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Verifide">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="otpVerifideButtonPress:" destination="58d-gz-C9i" eventType="touchUpInside" id="Ysz-de-ZZK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJo-n4-d1P">
+                                <rect key="frame" x="306.33333333333331" y="767.66666666666663" width="76.666666666666686" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonPress:" destination="58d-gz-C9i" eventType="touchUpInside" id="fu1-DM-Rrr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="l8X-h7-UKa"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="l8X-h7-UKa" firstAttribute="trailing" secondItem="rJo-n4-d1P" secondAttribute="trailing" constant="10" id="8jc-bZ-Uwv"/>
+                            <constraint firstItem="l8X-h7-UKa" firstAttribute="trailing" secondItem="6NZ-iH-Wmh" secondAttribute="trailing" constant="30" id="GrX-3e-3kn"/>
+                            <constraint firstAttribute="bottom" secondItem="rJo-n4-d1P" secondAttribute="bottom" constant="50" id="III-cN-0SQ"/>
+                            <constraint firstItem="6NZ-iH-Wmh" firstAttribute="leading" secondItem="l8X-h7-UKa" secondAttribute="leading" constant="30" id="XZy-Nm-nGJ"/>
+                            <constraint firstItem="6NZ-iH-Wmh" firstAttribute="centerX" secondItem="Hxw-4A-zsx" secondAttribute="centerX" id="lRR-A4-nmS"/>
+                            <constraint firstItem="6NZ-iH-Wmh" firstAttribute="top" secondItem="l8X-h7-UKa" secondAttribute="top" constant="50" id="mcd-ZA-nFr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="rJo-n4-d1P" id="NnI-7e-UBr"/>
+                        <outlet property="otpDeadLine" destination="C8Y-lm-06O" id="7WM-He-Kv0"/>
+                        <outlet property="otpField1" destination="lBT-AW-aMX" id="HEc-eu-DKk"/>
+                        <outlet property="otpField2" destination="gHK-7s-95T" id="4NJ-mL-UrH"/>
+                        <outlet property="otpField3" destination="r5P-kG-N4O" id="PRF-1a-lxW"/>
+                        <outlet property="otpField4" destination="sij-Ym-cNg" id="mfa-ma-5yO"/>
+                        <outlet property="otpVerifideButton" destination="MaY-WB-gjd" id="quN-HR-RDj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="efx-Nv-hpD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1655.7251908396945" y="-2.1126760563380285"/>
+        </scene>
     </scenes>
     <resources>
         <namedColor name="pigeonBackground">
@@ -217,5 +337,8 @@
         <namedColor name="pigeonDark">
             <color red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
