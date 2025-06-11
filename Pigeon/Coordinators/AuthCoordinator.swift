@@ -10,7 +10,7 @@ class AuthCoordinator: CoordinatorProtocol {
     }
 
     func start() {
-     showLogin()
+     showSMSVerification()
 
     }
     

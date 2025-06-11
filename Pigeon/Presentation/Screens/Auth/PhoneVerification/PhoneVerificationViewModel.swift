@@ -23,6 +23,16 @@ class PhoneVerificationViewModel{
             }
         }
     }
+    func verifyMail(_ email: String){
+        otpUseCase.verifyMailAdress(email) {[weak self] result in
+            switch result{
+            case .success(let request):
+                print(result)
+            case .failure(let error):
+                self?.showError?(error)
+            }
+        }
+    }
     
     func verifyCode(code: String,verificationID: String){
         otpUseCase.verify(verificationID: verificationID, code: code) {[weak self] result in

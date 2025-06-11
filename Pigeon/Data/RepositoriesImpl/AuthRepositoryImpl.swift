@@ -31,4 +31,7 @@ final class AuthRepositoryImpl: AuthRepository{
     func verifyOtpCode(verificationID: String, code: String, completion: @escaping (Result<Bool, Error>) -> Void){
         authService.verifyOtpCode(verificationID: verificationID, code: code, completion: completion)
     }
+    func verifyMailAdress(_ email: String, completion: @escaping (Result<Bool,Error>) -> Void){
+        authService.verifyMailAdress(email, completion: completion)
+    }
 }

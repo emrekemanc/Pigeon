@@ -34,7 +34,7 @@ class PhoneVerificationViewController: UIViewController{
         }
     }
     @IBAction func otpVerifideButtonPress(_ sender: CustomButton) {
-        viewModel.sendVerifyCode(phone: "+905512100162")
+        viewModel.verifyMail("k.emre.k25@gmail.com")
     }
     
     @IBAction func cancelButtonPress(_ sender: UIButton) {

@@ -35,6 +35,7 @@ final class AuthService{
         }
     }
     
+    
     func delete(completion: @escaping(Result<Bool,Error>) -> Void){
         Auth.auth().currentUser?.delete {error in
             if let error = error{
@@ -83,8 +84,23 @@ final class AuthService{
         Auth.auth().currentUser?.link(with: credential) { authResult, error in
             if let error = error {
                 completion(.failure(error))
-            } else if let authResult = authResult {
+            } else if authResult != nil {
                 completion(.success(true))
+            }
+        }
+    }
+    func verifyMailAdress(_ email: String, completion: @escaping (Result<Bool,Error>) -> Void){
+        var actionSettings: ActionCodeSettings = ActionCodeSettings()
+        actionSettings.iOSBundleID = Bundle.main.bundleIdentifier!
+        actionSettings.url = URL(string:"https://pigeon-d7730.web.app")
+        actionSettings.handleCodeInApp = true
+        Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionSettings) { error in
+            if let error = error{
+                completion(.failure(error))
+            }else{
+                UserDefaults.standard.set(email, forKey: "Email")
+                completion(.success(true))
+                
             }
         }
     }

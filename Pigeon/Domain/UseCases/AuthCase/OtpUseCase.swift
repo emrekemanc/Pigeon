@@ -18,4 +18,7 @@ class OtpUseCase {
         repository.sendOtpVerify(phone: phone, completion: completion)
         
     }
+    func verifyMailAdress(_ email: String, completion: @escaping (Result<Bool,Error>) -> Void){
+        repository.verifyMailAdress(email, completion: completion)
+    }
 }
