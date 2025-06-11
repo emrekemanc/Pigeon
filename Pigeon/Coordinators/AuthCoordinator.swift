@@ -10,7 +10,8 @@ class AuthCoordinator: CoordinatorProtocol {
     }
 
     func start() {
-        showSMSVerification()
+     showLogin()
+
     }
     
     func showLogin(){
@@ -20,6 +21,7 @@ class AuthCoordinator: CoordinatorProtocol {
         }
         vc.onLoginSuccess = {
             self.onLoginSuccess?()
+    
         }
         navigationController.setViewControllers([vc], animated: true)
     }

@@ -11,4 +11,6 @@ protocol AuthRepository{
     func delete(completion: @escaping(Result<Bool,Error>) -> Void)
     func signOut(completion: @escaping(Result<Bool,Error>) -> Void)
     func fetchUserId(completion: @escaping(Result<String,Error>) -> Void)
+    func sendOtpVerify(phone: String, completion: @escaping (Result<String, Error>) -> Void)
+    func verifyOtpCode(verificationID: String, code: String, completion: @escaping (Result<Bool, Error>) -> Void)
 }

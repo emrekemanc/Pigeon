@@ -24,4 +24,11 @@ final class AuthRepositoryImpl: AuthRepository{
     func fetchUserId(completion: @escaping(Result<String,Error>) -> Void){
         authService.fetchUserId(completion: completion)
     }
+    func sendOtpVerify(phone: String, completion: @escaping (Result<String, Error>) -> Void){
+        authService.sendOtpVerify(phone: phone, completion: completion)
+    }
+    
+    func verifyOtpCode(verificationID: String, code: String, completion: @escaping (Result<Bool, Error>) -> Void){
+        authService.verifyOtpCode(verificationID: verificationID, code: code, completion: completion)
+    }
 }
