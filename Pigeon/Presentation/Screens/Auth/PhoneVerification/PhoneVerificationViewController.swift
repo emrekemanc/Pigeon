@@ -15,14 +15,26 @@ class PhoneVerificationViewController: UIViewController{
     @IBOutlet weak var otpDeadLine: UILabel!
     @IBOutlet weak var otpVerifideButton: CustomButton!
     @IBOutlet weak var cancelButton: UIButton!
+    private let viewModel: PhoneVerificationViewModel = PhoneVerificationViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewModelConfigure()
+       
     }
-    
+    func viewModelConfigure(){
+        viewModel.sendCode = { [weak self] response in
+            print(response)
+        }
+        viewModel.verifySuccess = {
+            print("success")
+        }
+        viewModel.showError = {[weak self] error in
+            print(error)
+        }
+    }
     @IBAction func otpVerifideButtonPress(_ sender: CustomButton) {
-        
+        viewModel.verifyMail("k.emre.k25@gmail.com")
     }
     
     @IBAction func cancelButtonPress(_ sender: UIButton) {

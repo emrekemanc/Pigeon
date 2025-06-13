@@ -19,6 +19,8 @@ final class AuthService{
             
         }
     }
+   
+    
     func register(authCredentials: AuthCredentials,completion: @escaping(Result<String,Error>) -> Void){
         Auth.auth().createUser(withEmail: authCredentials.email.lowercased(), password: authCredentials.password ) { result, error in
             if let error = error {
@@ -32,6 +34,7 @@ final class AuthService{
             completion(.success(uid))
         }
     }
+    
     
     func delete(completion: @escaping(Result<Bool,Error>) -> Void){
         Auth.auth().currentUser?.delete {error in
@@ -52,8 +55,54 @@ final class AuthService{
             completion(.failure(error))
         }
     }
+    
     func fetchUserId(completion: @escaping(Result<String,Error>) -> Void){
             guard let userId = Auth.auth().currentUser?.uid else {completion(.failure(AuthError.userNotFound)); return}
             completion(.success(userId))
            }
+    
+//MARK: - OTP Service
+    
+    func sendOtpVerify(phone: String, completion: @escaping (Result<String, Error>) -> Void) {
+        PhoneAuthProvider.provider().verifyPhoneNumber(phone, uiDelegate: nil,multiFactorSession: nil) { verificationID, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let verificationID = verificationID {
+                completion(.success(verificationID))
+            }else{
+                completion(.failure(AuthError.unknown))
+            }
+        }
+    }
+    
+    func verifyOtpCode(verificationID: String, code: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        let credential = PhoneAuthProvider.provider().credential(
+            withVerificationID: verificationID,
+            verificationCode: code
+        )
+        
+        Auth.auth().currentUser?.link(with: credential) { authResult, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if authResult != nil {
+                completion(.success(true))
+            }
+        }
+    }
+    func verifyMailAdress(_ email: String, completion: @escaping (Result<Bool,Error>) -> Void){
+        var actionSettings: ActionCodeSettings = ActionCodeSettings()
+        actionSettings.iOSBundleID = Bundle.main.bundleIdentifier!
+        actionSettings.url = URL(string:"https://pigeon-d7730.web.app")
+        actionSettings.handleCodeInApp = true
+        Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionSettings) { error in
+            if let error = error{
+                completion(.failure(error))
+            }else{
+                UserDefaults.standard.set(email, forKey: "Email")
+                completion(.success(true))
+                
+            }
+        }
+    }
+
 }
