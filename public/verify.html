@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-posta Doğrulama</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .container h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .container p {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+
+    .success {
+      color: #27ae60;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-weight: 600;
+    }
+
+    .loader {
+      margin-top: 1rem;
+      width: 24px;
+      height: 24px;
+      border: 3px solid #ccc;
+      border-top-color: #3498db;
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>E-posta Doğrulama</h1>
+    <div id="message">
+      <div class="loader"></div>
+      <p>Lütfen bekleyin, işlem yapılıyor...</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, applyActionCode } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "REMOVED_API_KEY",
+      authDomain: "pigeon-d7730.firebaseapp.com",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const params = new URLSearchParams(window.location.search);
+    const oobCode = params.get("oobCode");
+
+    const messageDiv = document.getElementById("message");
+
+    if (oobCode) {
+      applyActionCode(auth, oobCode)
+        .then(() => {
+          messageDiv.innerHTML = `<p class="success">E-posta başarıyla doğrulandı!</p>`;
+          // Uygulamaya yönlendirme (isteğe bağlı)
+          setTimeout(() => {
+            window.location.href = "pigeonapp://verified";
+          }, 1500);
+        })
+        .catch((error) => {
+  let errorMessage = "Doğrulama sırasında bir hata oluştu.";
+  switch (error.code) {
+    case "auth/expired-action-code":
+      errorMessage = "Doğrulama linkinin süresi dolmuş. Lütfen yeniden doğrulama talep edin.";
+      break;
+    case "auth/invalid-action-code":
+      errorMessage = "Geçersiz doğrulama linki. Bağlantıyı kontrol edin.";
+      break;
+    case "auth/user-disabled":
+      errorMessage = "Hesabınız devre dışı bırakılmış. Lütfen destekle iletişime geçin.";
+      break;
+    case "auth/user-not-found":
+      errorMessage = "Bu doğrulama bağlantısı artık geçerli değil.";
+      break;
+    default:
+      errorMessage += `<br>Hata: ${error.message}`;
+  }
+
+  console.error("Hata:", error.code);
+  messageDiv.innerHTML = `<p class="error">${errorMessage}</p>`;
+});
+    } else {
+      messageDiv.innerHTML = `<p class="error">Geçersiz bağlantı. Lütfen yeniden deneyin.</p>`;
+    }
+  </script>
+</body>
+</html>
