@@ -29,7 +29,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         viewModel.onError = { error in
             self.loginButton.shake()
             self.loginButton.resetToOriginalState(title: "Login")
-            self.fieldForFirebaseError(error)
             
         }
     }
@@ -56,27 +55,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     @IBAction func mailViewer(_ sender: CustomTextField) {
-        
-    }
-    func fieldForFirebaseError(_ error: Error) {
-        let appError = AppError.handle(error)
-        switch appError {
-        case .auth(let authError):
-            switch authError{
-            case .invalidEmail:
-                mailTextField.showError(message: authError.localizedDescription)
-            case .wrongPassword:
-                passwordTextField.showError(message: authError.localizedDescription)
-            default:
-                print(authError.localizedDescription)
-                break
-            }
-        default:
-            print(appError.localizedDescription)
-            break
-            
-        }
-   
         
     }
     @IBAction func signUpPress(_ sender: UIButton) {

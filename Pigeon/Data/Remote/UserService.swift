@@ -16,18 +16,18 @@ class UserService {
         do {
             let userToSave = userCredentials
             guard let uid = userToSave.id else {
-                       completion(.failure(UserError.invalidUserId))
+                completion(.failure(FirestoreError.notFound))
                        return
                    }
             try db.collection(collectionName).document(uid).setData(from: userToSave) { error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(FirebaseError(from: error)))
                 } else {
                     completion(.success(true))
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(FirebaseError(from: error)))
         }
     }
     
@@ -35,11 +35,11 @@ class UserService {
         let docRef = db.collection(collectionName).document(uid)
         docRef.getDocument{ snapshot, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(FirebaseError(from: error)))
                 return
             }
             guard let snapshot = snapshot, snapshot.exists else {
-                completion(.failure(UserError.userNotFound))
+                completion(.failure(FirestoreError.notFound))
                 return
             }
             do {
@@ -47,7 +47,7 @@ class UserService {
                     completion(.success(user))
                 
             } catch {
-                completion(.failure(error))
+                completion(.failure(FirebaseError(from: error)))
             }
         }
     }
@@ -55,7 +55,7 @@ class UserService {
     func userDeleted(uid: String, completion: @escaping(Result<Bool, Error>) -> Void) {
         db.collection(collectionName).document(uid).delete { error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(FirebaseError(from: error)))
             } else {
                 completion(.success(true))
             }
@@ -64,21 +64,21 @@ class UserService {
     
     func userUpdate(userCredentials: UserCredentials, completion: @escaping(Result<Bool, Error>) -> Void) {
         guard let uid = userCredentials.id else {
-            completion(.failure(UserError.invalidUserId))
+            completion(.failure(FirestoreError.invalidArgument))
             return
         }
         let docRef = db.collection(collectionName).document(uid)
         
         docRef.getDocument { snapshot, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(FirebaseError(from: error)))
                 return
             }
             if snapshot?.exists == true {
                 do {
                     try docRef.setData(from: userCredentials) { error in
                         if let error = error {
-                            completion(.failure(error))
+                            completion(.failure(FirebaseError(from: error)))
                         } else {
                             completion(.success(true))
                         }
@@ -87,7 +87,7 @@ class UserService {
                     completion(.failure(error))
                 }
             } else {
-                completion(.failure(UserError.userNotFound))
+                completion(.failure(FirestoreError.notFound))
             }
         }
     }
@@ -108,7 +108,7 @@ class UserService {
 
                 guard let snapshot = snapshot else {
                     print("No snapshot returned")
-                    completion(.failure(UserError.userNotFound))
+                    completion(.failure(FirestoreError.notFound))
                     return
                 }
 

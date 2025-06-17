@@ -20,7 +20,7 @@ final class ChatService {
         
         userRef.getDocument { snapshot, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(FirestoreError(from: error)))
                 return
             }
             guard let data = snapshot?.data(),
@@ -38,7 +38,7 @@ final class ChatService {
         
         chatRef.getDocument { snapshot, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(FirestoreError(from: error)))
                 return
             }
             guard let chat = try? snapshot?.data(as: ChatCredentials.self) else {
@@ -54,7 +54,7 @@ final class ChatService {
             .whereField("user1_id", in: [chat.user1_id, chat.user2_id])
             .getDocuments { snapshot, error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(FirestoreError(from: error)))
                     return
                 }
 
@@ -81,20 +81,20 @@ final class ChatService {
         do {
             try db.collection(chatsCollection).document(chatID).setData(from: chat) { error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(FirestoreError(from: error)))
                 } else {
                     self.addChatIDToUsers(chatID: chatID, userIDs: [chat.user1_id, chat.user2_id]) { result in
                         switch result {
                         case .success:
                             completion(.success(chat))
                         case .failure(let error):
-                            completion(.failure(error))
+                            completion(.failure(FirestoreError(from: error)))
                         }
                     }
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(FirestoreError(from: error)))
         }
     }
 
@@ -109,7 +109,7 @@ final class ChatService {
             "messages_ids": FieldValue.arrayUnion([messageID])
         ]) { error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(FirestoreError(from: error)))
             } else {
                 completion(.success(true))
             }
@@ -139,7 +139,7 @@ final class ChatService {
 
         group.notify(queue: .main) {
             if let error = lastError {
-                completion(.failure(error))
+                completion(.failure(FirestoreError(from: error)))
             } else {
                 completion(.success(true))
             }

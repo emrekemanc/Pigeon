@@ -10,7 +10,7 @@ class AuthCoordinator: CoordinatorProtocol {
     }
 
     func start() {
-     showSMSVerification()
+        self.showLogin()
 
     }
     
@@ -29,7 +29,7 @@ class AuthCoordinator: CoordinatorProtocol {
     func showRegister(){
         let vc = storyboard.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
         vc.onRegisterSuccess = {
-            self.showLogin()
+            self.showSMSVerification()
         }
         vc.onLogin = {
             self.showLogin()

@@ -34,4 +34,5 @@ final class AuthRepositoryImpl: AuthRepository{
     func verifyMailAdress(_ email: String, completion: @escaping (Result<Bool,Error>) -> Void){
         authService.verifyMailAdress(email, completion: completion)
     }
+   
 }

@@ -31,7 +31,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         viewModel.onError = {error in
             self.registerButton.resetToOriginalState(title: "Register")
             self.registerButton.shake()
-            self.fieldForFirebaseError(error)
         }
     }
     
@@ -81,29 +80,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func fieldForFirebaseError(_ error: Error) {
-        let appError = AppError.handle(error)
-
-        switch appError {
-        case .auth(let authError):
-            switch authError{
-                
-            case .invalidEmail,.emailAlreadyInUse,.emailEmpty:
-                mailTextField.showError(message: authError.localizedDescription)
-            case .wrongPassword,.weakPassword,.passwordEmpty:
-                passwordTextField.showError(message: authError.localizedDescription)
-            default:
-                print(authError.localizedDescription)
-                break
-            }
-        default:
-            print(appError.localizedDescription)
-            break
-            
-        }
-   
-        
-    }
+  
     
     @IBAction func backToLoginPress(_ sender: UIButton) {
         self.onLogin?()
