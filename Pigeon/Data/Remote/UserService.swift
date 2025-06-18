@@ -4,7 +4,6 @@
 //
 //  Created by Muhammet Emre Kemancı on 16.05.2025.
 //
-
 import FirebaseFirestore
 
 class UserService {
@@ -14,28 +13,27 @@ class UserService {
     
     func userCreate(userCredentials: UserCredentials, completion: @escaping(Result<Bool, Error>) -> Void) {
         do {
-            let userToSave = userCredentials
-            guard let uid = userToSave.id else {
-                completion(.failure(FirestoreError.notFound))
-                       return
-                   }
-            try db.collection(collectionName).document(uid).setData(from: userToSave) { error in
+            guard let uid = userCredentials.id else {
+                completion(.failure(FirestoreError.invalidArgument))
+                return
+            }
+            try db.collection(collectionName).document(uid).setData(from: userCredentials) { error in
                 if let error = error {
-                    completion(.failure(FirebaseError(from: error)))
+                    completion(.failure(FirestoreError(from: error)))
                 } else {
                     completion(.success(true))
                 }
             }
         } catch {
-            completion(.failure(FirebaseError(from: error)))
+            completion(.failure(FirestoreError(from: error)))
         }
     }
     
     func userFetch(uid: String, completion: @escaping(Result<UserCredentials, Error>) -> Void) {
         let docRef = db.collection(collectionName).document(uid)
-        docRef.getDocument{ snapshot, error in
+        docRef.getDocument { snapshot, error in
             if let error = error {
-                completion(.failure(FirebaseError(from: error)))
+                completion(.failure(FirestoreError(from: error)))
                 return
             }
             guard let snapshot = snapshot, snapshot.exists else {
@@ -43,11 +41,10 @@ class UserService {
                 return
             }
             do {
-                 let user = try snapshot.data(as: UserCredentials.self)
-                    completion(.success(user))
-                
+                let user = try snapshot.data(as: UserCredentials.self)
+                completion(.success(user))
             } catch {
-                completion(.failure(FirebaseError(from: error)))
+                completion(.failure(FirestoreError(from: error)))
             }
         }
     }
@@ -55,7 +52,7 @@ class UserService {
     func userDeleted(uid: String, completion: @escaping(Result<Bool, Error>) -> Void) {
         db.collection(collectionName).document(uid).delete { error in
             if let error = error {
-                completion(.failure(FirebaseError(from: error)))
+                completion(.failure(FirestoreError(from: error)))
             } else {
                 completion(.success(true))
             }
@@ -71,20 +68,20 @@ class UserService {
         
         docRef.getDocument { snapshot, error in
             if let error = error {
-                completion(.failure(FirebaseError(from: error)))
+                completion(.failure(FirestoreError(from: error)))
                 return
             }
             if snapshot?.exists == true {
                 do {
                     try docRef.setData(from: userCredentials) { error in
                         if let error = error {
-                            completion(.failure(FirebaseError(from: error)))
+                            completion(.failure(FirestoreError(from: error)))
                         } else {
                             completion(.success(true))
                         }
                     }
                 } catch {
-                    completion(.failure(error))
+                    completion(.failure(FirestoreError(from: error)))
                 }
             } else {
                 completion(.failure(FirestoreError.notFound))
@@ -98,28 +95,20 @@ class UserService {
         db.collection(collectionName)
             .whereField("email", isEqualTo: mailToSearch)
             .getDocuments { snapshot, error in
-                print("Searching for: \(mailToSearch)")
-                
                 if let error = error {
-                    print("Firestore error: \(error.localizedDescription)")
-                    completion(.failure(error))
+                    completion(.failure(FirestoreError(from: error)))
                     return
                 }
 
                 guard let snapshot = snapshot else {
-                    print("No snapshot returned")
                     completion(.failure(FirestoreError.notFound))
                     return
                 }
 
-                let docs = snapshot.documents.map { $0.data() }
-                print("Found documents: \(docs)")
-                
                 let users: [UserCredentials] = snapshot.documents.compactMap { doc in
                     try? doc.data(as: UserCredentials.self)
                 }
 
-                print("Decoded users: \(users)")
                 completion(.success(users))
             }
     }

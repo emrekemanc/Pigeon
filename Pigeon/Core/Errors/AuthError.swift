@@ -6,8 +6,9 @@
 //
 
 import FirebaseAuth
+import FirebaseAuth
 
-enum AuthError: Error {
+enum AuthError: Error, LocalizedError {
     case invalidEmail
     case wrongPassword
     case userNotFound
@@ -22,48 +23,46 @@ enum AuthError: Error {
     case credentialAlreadyInUse
     case invalidCredential
     case unknown
-    case none
-    case some
 
     init(from error: Error) {
-        let errorCode = AuthErrorCode(rawValue: (error as NSError).code)
-        switch errorCode {
-        case .invalidEmail:
-            self = .invalidEmail
-        case .wrongPassword:
-            self = .wrongPassword
-        case .userNotFound:
-            self = .userNotFound
-        case .userDisabled:
-            self = .userDisabled
-        case .emailAlreadyInUse:
-            self = .emailAlreadyInUse
-        case .weakPassword:
-            self = .weakPassword
-        case .operationNotAllowed:
-            self = .operationNotAllowed
-        case .tooManyRequests:
-            self = .tooManyRequests
-        case .networkError:
-            self = .networkError
-        case .internalError:
-            self = .internalError
-        case .requiresRecentLogin:
-            self = .requiresRecentLogin
-        case .credentialAlreadyInUse:
-            self = .credentialAlreadyInUse
-        case .invalidCredential:
-            self = .invalidCredential
-        case .none:
-            self = .none
-        case .some(_):
-            self = .some
-        default:
+        let codeValue = (error as NSError).code
+        if let errorCode = AuthErrorCode(rawValue: codeValue) {
+            switch errorCode {
+            case .invalidEmail:
+                self = .invalidEmail
+            case .wrongPassword:
+                self = .wrongPassword
+            case .userNotFound:
+                self = .userNotFound
+            case .userDisabled:
+                self = .userDisabled
+            case .emailAlreadyInUse:
+                self = .emailAlreadyInUse
+            case .weakPassword:
+                self = .weakPassword
+            case .operationNotAllowed:
+                self = .operationNotAllowed
+            case .tooManyRequests:
+                self = .tooManyRequests
+            case .networkError:
+                self = .networkError
+            case .internalError:
+                self = .internalError
+            case .requiresRecentLogin:
+                self = .requiresRecentLogin
+            case .credentialAlreadyInUse:
+                self = .credentialAlreadyInUse
+            case .invalidCredential:
+                self = .invalidCredential
+            default:
+                self = .unknown
+            }
+        } else {
             self = .unknown
         }
     }
 
-    var localizedDescription: String {
+    var errorDescription: String? {
         switch self {
         case .invalidEmail:
             return "The email address is badly formatted."
@@ -93,10 +92,6 @@ enum AuthError: Error {
             return "The credential is invalid or has expired."
         case .unknown:
             return "An unknown authentication error occurred."
-        case .none:
-            return "No authentication error occurred."
-        case .some:
-            return "An unspecified authentication error occurred."
         }
     }
 }

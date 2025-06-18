@@ -23,6 +23,7 @@ final class ChatService {
                 completion(.failure(FirestoreError(from: error)))
                 return
             }
+            
             guard let data = snapshot?.data(),
                   let chatIDs = data["chat_ids"] as? [String] else {
                 completion(.success([]))
@@ -74,19 +75,20 @@ final class ChatService {
    
     func createChat(_ chat: ChatCredentials, completion: @escaping (Result<ChatCredentials, Error>) -> Void) {
         guard let chatID = chat.id else {
-            completion(.failure(NSError(domain: "InvalidChatID", code: 400)))
+            completion(.failure(FirestoreError.invalidArgument))
             return
         }
-
         do {
             try db.collection(chatsCollection).document(chatID).setData(from: chat) { error in
                 if let error = error {
                     completion(.failure(FirestoreError(from: error)))
                 } else {
+                    
                     self.addChatIDToUsers(chatID: chatID, userIDs: [chat.user1_id, chat.user2_id]) { result in
                         switch result {
                         case .success:
                             completion(.success(chat))
+                            
                         case .failure(let error):
                             completion(.failure(FirestoreError(from: error)))
                         }
@@ -100,10 +102,9 @@ final class ChatService {
 
     func appendMessageToChat(chat: ChatCredentials, messageID: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let chatID = chat.id else {
-            completion(.failure(NSError(domain: "ChatService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Geçersiz chat ID"])))
+            completion(.failure(FirestoreError.invalidArgument))
             return
         }
-
         let chatRef = db.collection(chatsCollection).document(chatID)
         chatRef.updateData([
             "messages_ids": FieldValue.arrayUnion([messageID])
@@ -120,7 +121,6 @@ final class ChatService {
     private func addChatIDToUsers(chatID: String, userIDs: [String], completion: @escaping (Result<Bool, Error>) -> Void) {
         let group = DispatchGroup()
         var lastError: Error?
-
         for userID in userIDs {
             group.enter()
             let userRef = db.collection(usersCollection).document(userID)
@@ -136,7 +136,6 @@ final class ChatService {
                 group.leave()
             }
         }
-
         group.notify(queue: .main) {
             if let error = lastError {
                 completion(.failure(FirestoreError(from: error)))
