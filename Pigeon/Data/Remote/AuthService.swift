@@ -32,7 +32,18 @@ final class AuthService{
                       completion(.failure(AppError.auth(.userNotFound)))
                       return
                   }
-            completion(.success(uid))
+            let actionSettings: ActionCodeSettings = ActionCodeSettings()
+            actionSettings.iOSBundleID = Bundle.main.bundleIdentifier!
+            actionSettings.url = URL(string:"https://pigeon-d7730.web.app/verify")
+            actionSettings.handleCodeInApp = false
+            result?.user.sendEmailVerification(with: actionSettings){error in
+                if let error = error{
+                    completion(.failure(error))
+                }else{
+                    completion(.success(uid))
+                }
+            }
+           
         }
     }
     
@@ -93,40 +104,20 @@ final class AuthService{
             }
         }
     }
-    
-    func verifyMailAdress(_ email: String, completion: @escaping (Result<Bool,Error>) -> Void){
-        let actionSettings: ActionCodeSettings = ActionCodeSettings()
-        actionSettings.iOSBundleID = Bundle.main.bundleIdentifier!
-        actionSettings.url = URL(string:"https://pigeon-d7730.web.app/verify")
-        actionSettings.handleCodeInApp = true
-        Auth.auth().sendSignInLink(toEmail: email, actionCodeSettings: actionSettings) { error in
-            if let error = error{
-                completion(.failure(AuthError(from: error)))
-            }else{
-                UserDefaults.standard.set(email, forKey: "EmailForSignIn")
-                completion(.success(true))
-                
-            }
-        }
-    }
-    
-    func handleEmailLinkSignIn(with link: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        guard let email = UserDefaults.standard.string(forKey: "EmailForSignIn") else {
-            completion(.failure(AuthError.userNotFound))
+    func checkIfEmailIsVerified(completion: @escaping (Bool) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion(false)
             return
         }
 
-        Auth.auth().signIn(withEmail: email, link: link) { authResult, error in
+        // Kullanıcı bilgilerini yenile
+        user.reload { error in
             if let error = error {
-                completion(.failure(AuthError(from: error)))
+                print("reload error: \(error.localizedDescription)")
+                completion(false)
             } else {
-                completion(.success(true))
+                completion(user.isEmailVerified)
             }
         }
     }
-
-    func isValidEmailSignInLink(_ link: String) -> Bool {
-        return Auth.auth().isSignIn(withEmailLink: link)
-    }
-
 }

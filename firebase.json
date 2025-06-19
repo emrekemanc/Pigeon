@@ -21,7 +21,7 @@
     ],
     "rewrites": [
       {
-        "source": "verify",
+        "source": "**",
         "destination": "/verify.html"
       }
     ]

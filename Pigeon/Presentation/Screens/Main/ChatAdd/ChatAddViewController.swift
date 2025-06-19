@@ -19,6 +19,7 @@ class ChatAddViewController: UIViewController{
         tableView.dataSource = self
         tableView.delegate = self
         chatAddConfiguration()
+        viewModel.checkEmailAdres()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
@@ -33,11 +34,19 @@ class ChatAddViewController: UIViewController{
             print("success")
         }
         viewModel.onError = {error in
-            print(error.localizedDescription)
+            self.showErrorPopup(message: error.localizedDescription)
         }
         viewModel.chatCheck = {chat, userId in
             self.userSelected?(chat, userId)
             print(chat ?? "boş")
+        }
+        viewModel.emailCheck = { result in
+            if result == false {
+                self.showErrorPopup(title: "",message: "")
+            }else{
+                print(result )
+            }
+            
         }
     }
     
@@ -72,6 +81,18 @@ extension ChatAddViewController: UITableViewDelegate, UITableViewDataSource {
         }
         viewModel.checkChat(user2Id: user2ID)
     }
+    func showErrorPopup(title: String = "Error", message: String, completion: (() -> Void)? = nil) {
+           let alert = UIAlertController(title: title,
+                                         message: message,
+                                         preferredStyle: .alert)
+           
+           alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+               completion?()
+           })
+           
+           self.present(alert, animated: true, completion: nil)
+       }
+
 }
 extension ChatAddViewController: UISearchBarDelegate{
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -79,4 +100,5 @@ extension ChatAddViewController: UISearchBarDelegate{
         guard let search = searchBar.text, search.isNotEmpty else{print("searchbar boş");return}
         viewModel.searchUser(mail: search.lowercased())
     }
+    
 }

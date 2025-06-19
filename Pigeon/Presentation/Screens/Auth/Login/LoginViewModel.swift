@@ -23,15 +23,4 @@ final class LoginViewModel{
         }
     }
     
-    func verifyMail(_ email: String){
-        otpUseCase.verifyMailAdress(email) {[weak self] result in
-            switch result{
-            case .success(let request):
-                print(request)
-            case .failure(let error):
-                self?.onError?(error)
-                print(error.localizedDescription)
-            }
-        }
-    }
 }
