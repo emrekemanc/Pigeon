@@ -239,7 +239,7 @@
                                                 <constraint firstItem="95Z-au-44Z" firstAttribute="top" secondItem="faz-75-5KF" secondAttribute="topMargin" constant="20" id="dlp-Ni-gsb"/>
                                                 <constraint firstItem="IOx-Ae-cP3" firstAttribute="leading" secondItem="HYH-rq-j4l" secondAttribute="trailing" constant="10" id="iiI-UX-qpW"/>
                                                 <constraint firstItem="IOx-Ae-cP3" firstAttribute="top" secondItem="faz-75-5KF" secondAttribute="topMargin" constant="20" id="yPJ-87-X3W"/>
-                                            </constraints
+                                            </constraints>
 
                                         </tableViewCellContentView>
                                     </tableViewCell>

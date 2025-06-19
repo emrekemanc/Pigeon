@@ -12,16 +12,6 @@ enum NetworkError: Error {
     case badResponse
     case unknown
 
-    var code: String {
-        switch self {
-        case .noConnection: return "NO_CONNECTION"
-        case .timeout: return "TIMEOUT"
-        case .unreachableHost: return "UNREACHABLE_HOST"
-        case .badResponse: return "BAD_RESPONSE"
-        case .unknown: return "UNKNOWN"
-        }
-    }
-
     var localizedDescription: String {
         switch self {
         case .noConnection:

@@ -31,7 +31,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         viewModel.onError = {error in
             self.registerButton.resetToOriginalState(title: "Register")
             self.registerButton.shake()
-            self.fieldForFirebaseError(error)
+            self.handleLoginError(error: error)
         }
     }
     
@@ -81,30 +81,30 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func fieldForFirebaseError(_ error: Error) {
-        let appError = AppError.handle(error)
-
-        switch appError {
-        case .auth(let authError):
-            switch authError{
-                
-            case .invalidEmail,.emailAlreadyInUse,.emailEmpty:
-                mailTextField.showError(message: authError.localizedDescription)
-            case .wrongPassword,.weakPassword,.passwordEmpty:
-                passwordTextField.showError(message: authError.localizedDescription)
-            default:
-                print(authError.localizedDescription)
-                break
-            }
+    func handleLoginError(error: Error) {
+        let authError: AuthError = error as! AuthError
+        switch authError {
+        case .emailAlreadyInUse:
+            mailTextField.showError(message: authError.localizedDescription)
+        case .invalidEmail:
+            mailTextField.showError(message: authError.localizedDescription)
+        case .weakPassword:
+            passwordTextField.showError(message: authError.localizedDescription)
         default:
-            print(appError.localizedDescription)
-            break
-            
+            showErrorPopup(message: error.localizedDescription)
         }
-   
-        
     }
-    
+    func showErrorPopup(title: String = "Error", message: String, completion: (() -> Void)? = nil) {
+           let alert = UIAlertController(title: title,
+                                         message: message,
+                                         preferredStyle: .alert)
+           
+           alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+               completion?()
+           })
+           
+           self.present(alert, animated: true, completion: nil)
+       }
     @IBAction func backToLoginPress(_ sender: UIButton) {
         self.onLogin?()
     }

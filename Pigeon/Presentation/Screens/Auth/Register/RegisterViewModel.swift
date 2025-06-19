@@ -9,7 +9,6 @@ final class RegisterViewModel {
     private let createUserUseCase = CreateUserUseCase(repository: UserRepositoryImpl())
     private let deleteUseCase = DeleteUseCase(repository: AuthRepositoryImpl())
     private let signOutUseCase = SignOutUseCase(repository: AuthRepositoryImpl())
-    private let loginUseCase = LoginUserUseCases(repository: AuthRepositoryImpl())
 
     func register(authCredentials: AuthCredentials, userCredentials: UserCredentials) {
         
@@ -23,37 +22,24 @@ final class RegisterViewModel {
             case .success(let uid):
                 var updatedUserCredentials = userCredentials
                 updatedUserCredentials.id = uid
-                self.loginUseCaseFunc(authCredentials: authCredentials, userCredentials: updatedUserCredentials)
-            case .failure(let error):
-                print("Register Error: \(error.localizedDescription)")
-                self.handleError(error)
-            }
-        }
-    }
-
-    private func loginUseCaseFunc(authCredentials: AuthCredentials, userCredentials: UserCredentials) {
-        loginUseCase.execute(authCredentials: authCredentials) { result in
-            switch result {
-            case .success:
                 self.createUserUseCaseFunc(userCredentials: userCredentials)
             case .failure(let error):
-                print("Login Error: \(error.localizedDescription)")
-                self.handleError(error)
+                print("Register Error: \(error.localizedDescription)")
+                self.onError?(error)
             }
         }
     }
-
     private func createUserUseCaseFunc(userCredentials: UserCredentials) {
         createUserUseCase.execute(userCredentials: userCredentials) { result in
             switch result {
             case .success:
-                self.signOutUseCaseFunc()
+                self.onSuccess?(true)
             case .failure(let error):
                 print("Create User Error: \(error.localizedDescription)")
                 self.deleteUserUseCaseFunc()
                 self.signOutUseCaseFunc()
               
-                self.handleError(error)
+                self.onError?(error)
             }
         }
     }
@@ -65,7 +51,7 @@ final class RegisterViewModel {
                 print("Kullanıcı silindi")
             case .failure(let error):
                 print("Kullanıcı silinemedi: \(error.localizedDescription)")
-                self.handleError(error)
+                self.onError?(error)
             }
         }
     }
@@ -77,13 +63,10 @@ final class RegisterViewModel {
                 self.onSuccess?(result)
             case .failure(let error):
                 print("Sign Out Error: \(error.localizedDescription)")
-                self.handleError(error)
+                self.onError?(error)
             }
         }
     }
-    private func handleError(_ error: Error) {
-        let convertedError = AuthError(from: error)
-        print("Error: \(convertedError.localizedDescription)")
-        self.onError?(convertedError)
-    }
+    
+   
 }

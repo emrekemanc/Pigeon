@@ -6,80 +6,91 @@
 //
 
 import FirebaseAuth
+import FirebaseAuth
 
-enum AuthError: Error {
+enum AuthError: Error, LocalizedError {
     case invalidEmail
     case wrongPassword
     case userNotFound
-    case emailAlreadyInUse
-    case emailEmpty
-    case weakPassword
-    case passwordEmpty
     case userDisabled
-    case missingEmail
+    case emailAlreadyInUse
+    case weakPassword
+    case operationNotAllowed
+    case tooManyRequests
+    case networkError
+    case internalError
+    case requiresRecentLogin
+    case credentialAlreadyInUse
+    case invalidCredential
     case unknown
 
     init(from error: Error) {
-        guard let errorCode = AuthErrorCode(rawValue: (error as NSError).code) else {
-            self = .unknown
-            return
-        }
-
-        switch errorCode {
-        case .invalidEmail:
-            self = .invalidEmail
-        case .wrongPassword:
-            self = .wrongPassword
-        case .userNotFound:
-            self = .userNotFound
-        case .emailAlreadyInUse:
-            self = .emailAlreadyInUse
-        case .weakPassword:
-            self = .weakPassword
-        case .userDisabled:
-            self = .userDisabled
-        case .missingEmail:
-            self = .missingEmail
-        default:
+        let codeValue = (error as NSError).code
+        print(codeValue)
+        if let errorCode = AuthErrorCode(rawValue: codeValue)?.code {
+            switch errorCode {
+            case .invalidEmail:
+                self = .invalidEmail
+            case .wrongPassword:
+                self = .wrongPassword
+            case .userNotFound:
+                self = .userNotFound
+            case .userDisabled:
+                self = .userDisabled
+            case .emailAlreadyInUse:
+                self = .emailAlreadyInUse
+            case .weakPassword:
+                self = .weakPassword
+            case .operationNotAllowed:
+                self = .operationNotAllowed
+            case .tooManyRequests:
+                self = .tooManyRequests
+            case .networkError:
+                self = .networkError
+            case .internalError:
+                self = .internalError
+            case .requiresRecentLogin:
+                self = .requiresRecentLogin
+            case .credentialAlreadyInUse:
+                self = .credentialAlreadyInUse
+            case .invalidCredential:
+                self = .invalidCredential
+            default:
+                self = .unknown
+            }
+        } else {
             self = .unknown
         }
     }
 
-    var code: String {
-        switch self {
-        case .invalidEmail: return "INVALID_EMAIL"
-        case .wrongPassword: return "WRONG_PASSWORD"
-        case .userNotFound: return "USER_NOT_FOUND"
-        case .emailAlreadyInUse: return "EMAIL_ALREADY_IN_USE"
-        case .emailEmpty: return "EMAIL_EMPTY"
-        case .weakPassword: return "WEAK_PASSWORD"
-        case .passwordEmpty: return "PASSWORD_EMPTY"
-        case .userDisabled: return "USER_DISABLED"
-        case .missingEmail: return "MISSING_EMAIL"
-        case .unknown: return "UNKNOWN"
-        }
-    }
-
-    var localizedDescription: String {
+    var errorDescription: String? {
         switch self {
         case .invalidEmail:
-            return "The email address format is invalid."
+            return "The email address is badly formatted."
         case .wrongPassword:
-            return "The password entered is incorrect."
+            return "The password is incorrect."
         case .userNotFound:
-            return "No user was found with this email."
-        case .emailAlreadyInUse:
-            return "This email is already associated with another account."
-        case .emailEmpty:
-            return "Email address cannot be empty."
-        case .weakPassword:
-            return "The password is too weak. Please choose a stronger password."
-        case .passwordEmpty:
-            return "Password cannot be empty."
+            return "No user found with this email."
         case .userDisabled:
             return "This user account has been disabled."
-        case .missingEmail:
-            return "Email address is required."
+        case .emailAlreadyInUse:
+            return "This email is already associated with another account."
+        case .weakPassword:
+            return "The password is too weak. Please use a stronger password."
+        case .operationNotAllowed:
+            return "This authentication operation is not allowed."
+        case .tooManyRequests:
+            return "Too many requests. Try again later."
+        case .networkError:
+            return "A network error occurred. Check your internet connection."
+        case .internalError:
+            return "An internal error occurred. Please try again."
+        case .requiresRecentLogin:
+            return "Please log in again to perform this operation."
+        case .credentialAlreadyInUse:
+            return "This credential is already associated with another account."
+        case .invalidCredential:
+            return "The credential is invalid or has expired."
         case .unknown:
             return "An unknown authentication error occurred."
         }
