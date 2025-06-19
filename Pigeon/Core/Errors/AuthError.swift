@@ -26,7 +26,8 @@ enum AuthError: Error, LocalizedError {
 
     init(from error: Error) {
         let codeValue = (error as NSError).code
-        if let errorCode = AuthErrorCode(rawValue: codeValue) {
+        print(codeValue)
+        if let errorCode = AuthErrorCode(rawValue: codeValue)?.code {
             switch errorCode {
             case .invalidEmail:
                 self = .invalidEmail

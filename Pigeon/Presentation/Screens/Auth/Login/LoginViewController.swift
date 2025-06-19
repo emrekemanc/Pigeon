@@ -62,8 +62,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func handleLoginError(error: Error) {
-        let authError = AuthError(from: error)
-        print(authError)
+        let authError: AuthError = error as! AuthError
         switch authError {
         case .invalidEmail:
             mailTextField.showError(message: error.localizedDescription)
@@ -71,6 +70,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             passwordTextField.showError(message: error.localizedDescription)
         case .userNotFound:
             mailTextField.showError(message: error.localizedDescription)
+        case .invalidCredential:
+            mailTextField.showError(message: error.localizedDescription)
+            passwordTextField.showError(message: error.localizedDescription)
         default:
             showErrorPopup(message: error.localizedDescription)
         }

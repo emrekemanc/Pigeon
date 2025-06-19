@@ -26,7 +26,7 @@ final class RegisterViewModel {
                 self.loginUseCaseFunc(authCredentials: authCredentials, userCredentials: updatedUserCredentials)
             case .failure(let error):
                 print("Register Error: \(error.localizedDescription)")
-                self.handleError(error)
+                self.onError?(error)
             }
         }
     }
@@ -38,7 +38,7 @@ final class RegisterViewModel {
                 self.createUserUseCaseFunc(userCredentials: userCredentials)
             case .failure(let error):
                 print("Login Error: \(error.localizedDescription)")
-                self.handleError(error)
+                self.onError?(error)
             }
         }
     }
@@ -53,7 +53,7 @@ final class RegisterViewModel {
                 self.deleteUserUseCaseFunc()
                 self.signOutUseCaseFunc()
               
-                self.handleError(error)
+                self.onError?(error)
             }
         }
     }
@@ -65,7 +65,7 @@ final class RegisterViewModel {
                 print("Kullanıcı silindi")
             case .failure(let error):
                 print("Kullanıcı silinemedi: \(error.localizedDescription)")
-                self.handleError(error)
+                self.onError?(error)
             }
         }
     }
@@ -77,13 +77,10 @@ final class RegisterViewModel {
                 self.onSuccess?(result)
             case .failure(let error):
                 print("Sign Out Error: \(error.localizedDescription)")
-                self.handleError(error)
+                self.onError?(error)
             }
         }
     }
-    private func handleError(_ error: Error) {
-        let convertedError = AuthError(from: error)
-        print("Error: \(convertedError.localizedDescription)")
-        self.onError?(convertedError)
-    }
+    
+   
 }
