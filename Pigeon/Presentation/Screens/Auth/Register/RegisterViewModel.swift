@@ -22,7 +22,7 @@ final class RegisterViewModel {
             case .success(let uid):
                 var updatedUserCredentials = userCredentials
                 updatedUserCredentials.id = uid
-                self.createUserUseCaseFunc(userCredentials: userCredentials)
+                self.createUserUseCaseFunc(userCredentials: updatedUserCredentials)
             case .failure(let error):
                 print("Register Error: \(error.localizedDescription)")
                 self.onError?(error)

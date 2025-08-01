@@ -82,6 +82,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     func handleLoginError(error: Error) {
+        print(error.localizedDescription)
         let authError: AuthError = error as! AuthError
         switch authError {
         case .emailAlreadyInUse:

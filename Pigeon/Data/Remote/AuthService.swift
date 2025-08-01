@@ -32,6 +32,7 @@ final class AuthService{
                       completion(.failure(AppError.auth(.userNotFound)))
                       return
                   }
+           print( Auth.auth().currentUser?.uid)
             let actionSettings: ActionCodeSettings = ActionCodeSettings()
             actionSettings.iOSBundleID = Bundle.main.bundleIdentifier!
             actionSettings.url = URL(string:"https://pigeon-d7730.web.app/verify")
