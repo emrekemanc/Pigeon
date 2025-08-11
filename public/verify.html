@@ -92,10 +92,9 @@
 
     const params = new URLSearchParams(window.location.search);
     const oobCode = params.get("oobCode");
-<<<<<<< Updated upstream
-=======
+
     const uid = params.get("uid");
->>>>>>> Stashed changes
+
 
     const messageDiv = document.getElementById("message");
 
@@ -105,11 +104,8 @@
           messageDiv.innerHTML = `<p class="success">E-posta başarıyla doğrulandı!</p>`;
           // Uygulamaya yönlendirme (isteğe bağlı)
           setTimeout(() => {
-<<<<<<< Updated upstream
-            window.location.href = "pigeonapp://verified";
-=======
+
             window.location.href = `Pigeon://emailVerified?uid=${uid}`;
->>>>>>> Stashed changes
           }, 1500);
         })
         .catch((error) => {
