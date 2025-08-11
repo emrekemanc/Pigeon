@@ -16,4 +16,5 @@ struct UserCredentials: Codable, Identifiable {
     var updated_at: Date
     var fcm_token: String?
     var chat_ids: [String]
+    var email_verify: Bool? = false
 }

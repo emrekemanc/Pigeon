@@ -5,16 +5,13 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.muhammetemrekemanci.Pigeon</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.muhammetemrekemanci.Pigeon</string>
+				<string>Pigeon</string>
 			</array>
+			<key>CFBundleURLName</key>
+			<string>com.emrekemanci.Pigeon</string>
 		</dict>
-		<dict/>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

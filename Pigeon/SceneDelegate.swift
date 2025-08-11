@@ -24,6 +24,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
         self.appCoordinator = coordinator
     }
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        if url.scheme == "Pigeon", url.host == "emailVerified" {
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            print("yakaladık")
+            if let uid = components?.queryItems?.first(where: { $0.name == "uid" })?.value {
+                print(uid)
+                appCoordinator?.handleEmailVerified(uid: uid)
+            }
+        }
+    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

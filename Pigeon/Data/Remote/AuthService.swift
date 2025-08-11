@@ -32,11 +32,11 @@ final class AuthService{
                       completion(.failure(AppError.auth(.userNotFound)))
                       return
                   }
-           print( Auth.auth().currentUser?.uid)
+            print( Auth.auth().currentUser?.uid ?? "")
             let actionSettings: ActionCodeSettings = ActionCodeSettings()
             actionSettings.iOSBundleID = Bundle.main.bundleIdentifier!
-            actionSettings.url = URL(string:"https://pigeon-d7730.web.app/verify")
-            actionSettings.handleCodeInApp = false
+            actionSettings.url = URL(string:"https://pigeon-d7730.web.app/verify?uid=\(uid)")
+            actionSettings.handleCodeInApp = true
             result?.user.sendEmailVerification(with: actionSettings){error in
                 if let error = error{
                     completion(.failure(error))
