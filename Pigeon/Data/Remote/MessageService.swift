@@ -14,26 +14,25 @@ final class MessageService {
 
     func addMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, Error>) -> Void) {
         guard let messageID = message.id else {
-            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid message ID"])))
+            completion(.failure(FirestoreError.invalidArgument))
             return
         }
-
         do {
             try db.collection(messagesCollection).document(messageID).setData(from: message) { error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(FirestoreError(from: error)))
                 } else {
                     completion(.success(message))
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(FirestoreError(from: error)))
         }
     }
 
     func fetchAllMessages(for chat: ChatCredentials, completion: @escaping (Result<[MessageCredentials], Error>) -> Void) {
         guard let chatID = chat.id else {
-            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid chat ID"])))
+            completion(.failure(FirestoreError.invalidArgument))
             return
         }
 
@@ -42,7 +41,7 @@ final class MessageService {
             .order(by: "created_at", descending: true)
             .getDocuments { snapshot, error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(FirestoreError(from: error)))
                     return
                 }
 
@@ -56,14 +55,15 @@ final class MessageService {
     func fetchMessage(message_id: String, completion: @escaping (Result<MessageCredentials,Error>) -> Void){
         db.collection(messagesCollection).document(message_id).getDocument { snapshot, error in
             if let error = error{
-                completion(.failure(error))
+                completion(.failure(FirestoreError(from: error)))
                 return
             }
-            do{guard let snapshot = snapshot else{print("snapshot dosent catch"); return}
+            do{
+                guard let snapshot = snapshot else{ completion(.failure(FirestoreError.invalidArgument)); return}
                 let message = try snapshot.data(as: MessageCredentials.self)
                 completion(.success(message))
             }catch{
-                completion(.failure(error))
+                completion(.failure(FirestoreError(from: error)))
             }
         }
     }
@@ -71,7 +71,7 @@ final class MessageService {
     func deleteMessage(withID id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         db.collection(messagesCollection).document(id).delete { error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(FirestoreError(from: error)))
             } else {
                 completion(.success(true))
             }
@@ -80,7 +80,7 @@ final class MessageService {
 
     func deleteAllMessages(for chat: ChatCredentials, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let chatID = chat.id else {
-            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid chat ID"])))
+            completion(.failure(FirestoreError.invalidArgument))
             return
         }
 
@@ -88,7 +88,7 @@ final class MessageService {
             .whereField("chat_id", isEqualTo: chatID)
             .getDocuments { snapshot, error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(FirestoreError(from: error)))
                     return
                 }
 
@@ -97,7 +97,7 @@ final class MessageService {
 
                 batch.commit { error in
                     if let error = error {
-                        completion(.failure(error))
+                        completion(.failure(FirestoreError(from: error)))
                     } else {
                         completion(.success(true))
                     }
@@ -107,20 +107,20 @@ final class MessageService {
 
     func updateMessage(_ message: MessageCredentials, completion: @escaping (Result<MessageCredentials, Error>) -> Void) {
         guard let id = message.id else {
-            completion(.failure(NSError(domain: "MessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid message ID"])))
+            completion(.failure(FirestoreError.invalidArgument))
             return
         }
 
         do {
             try db.collection(messagesCollection).document(id).setData(from: message) { error in
                 if let error = error {
-                    completion(.failure(error))
+                    completion(.failure(FirestoreError(from: error)))
                 } else {
                     completion(.success(message))
                 }
             }
         } catch {
-            completion(.failure(error))
+            completion(.failure(FirestoreError(from: error)))
         }
     }
 }

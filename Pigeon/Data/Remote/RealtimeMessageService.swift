@@ -17,7 +17,7 @@ final class RealtimeMessageService {
     
     func sendMessage(_ message: MessageCredentials, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let messageID = message.id else {
-            completion(.failure(NSError(domain: "RealtimeMessageService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid message ID"])))
+            completion(.failure(RealtimeDatabaseError.invalidMessageID))
             return
         }
         let chatID = message.chat_id
@@ -27,7 +27,7 @@ final class RealtimeMessageService {
         ]
         databaseRef.child(chats).child(chatID).child(messages).child(messageID).setValue(messageData) { error, _ in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(RealtimeDatabaseError.firebaseError(error)))
             } else {
                 completion(.success(true))
             }
@@ -41,7 +41,7 @@ final class RealtimeMessageService {
                     let value = snapshot.value as? [String: Any],
                     let id = value["id"] as? String
                 else {
-                    onNewMessage(.failure(NSError(domain: "ParseError", code: 500)))
+                    onNewMessage(.failure(RealtimeDatabaseError.snapshotParsingFailed))
                     return
                 }
                 onNewMessage(.success(id))
@@ -51,7 +51,7 @@ final class RealtimeMessageService {
     func removeMessage(chatID: String, messageID: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         databaseRef.child(chats).child(chatID).child(messages).child(messageID).removeValue { error, _ in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(RealtimeDatabaseError.firebaseError(error)))
             } else {
                 completion(.success(true))
             }
@@ -79,7 +79,7 @@ final class RealtimeMessageService {
                     dispatchGroup.enter()
                     child.ref.removeValue { error, _ in
                         if let error = error {
-                            errorOccurred = error
+                            errorOccurred = RealtimeDatabaseError.firebaseError(error)
                         }
                         dispatchGroup.leave()
                     }

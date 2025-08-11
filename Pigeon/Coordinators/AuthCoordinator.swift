@@ -10,7 +10,8 @@ class AuthCoordinator: CoordinatorProtocol {
     }
 
     func start() {
-        showSMSVerification()
+        self.showLogin()
+
     }
     
     func showLogin(){
@@ -20,6 +21,7 @@ class AuthCoordinator: CoordinatorProtocol {
         }
         vc.onLoginSuccess = {
             self.onLoginSuccess?()
+    
         }
         navigationController.setViewControllers([vc], animated: true)
     }
@@ -27,15 +29,19 @@ class AuthCoordinator: CoordinatorProtocol {
     func showRegister(){
         let vc = storyboard.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
         vc.onRegisterSuccess = {
-            self.showLogin()
+            self.showVerify()
         }
         vc.onLogin = {
             self.showLogin()
         }
         navigationController.setViewControllers([vc], animated: true)
     }
-    func showSMSVerification(){
-        let vc = storyboard.instantiateViewController(withIdentifier: "PhoneVerificationViewController") as! PhoneVerificationViewController
+    
+    func showVerify(){
+        let vc = storyboard.instantiateViewController(withIdentifier: "VerifyViewController") as! VerifyViewController
+        vc.verifySuccess = {
+            
+        }
         navigationController.setViewControllers([vc], animated: true)
     }
     

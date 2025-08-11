@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import Firebase
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         return true
     }
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
 
+        if url.scheme == "Pigeon", url.host == "emailVerified" {
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            if let uid = components?.queryItems?.first(where: { $0.name == "uid" })?.value {
+                print("Email verified for UID: \(uid)")
+            }
+        }
+
+        return true
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

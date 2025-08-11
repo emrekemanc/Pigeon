@@ -10,10 +10,12 @@ import Foundation
 class ChatAddViewModel{
     var onSuccess: (([UserCredentials]) -> Void)?
     var chatCheck:((ChatCredentials?,String) ->Void)?
+    var emailCheck: ((Bool) -> Void)?
     var onError: ((Error) -> Void)?
     private let searchUseCase: SearchUserUseCase = SearchUserUseCase(repository: UserRepositoryImpl())
     private let fetchUserIdUseCase: FetchUserIdUseCase = FetchUserIdUseCase(repository: AuthRepositoryImpl())
     private let checkChatUseCase: CheckIfChatExistsUseCase = CheckIfChatExistsUseCase(repository: ChatRepositoryImpl())
+    private let otpUseCases: OtpUseCase = OtpUseCase(repository: AuthRepositoryImpl())
 
     func searchUser(mail: String){
         searchUseCase.execute(mail: mail) { result in
@@ -42,6 +44,15 @@ class ChatAddViewModel{
                 }
             case .failure(let error):
                 self.onError?(error)
+            }
+        }
+    }
+    func checkEmailAdres(){
+        otpUseCases.checkIfEmailIsVerified { result in
+            if result{
+                self.emailCheck?(true)
+            }else{
+                self.emailCheck?(false)
             }
         }
     }

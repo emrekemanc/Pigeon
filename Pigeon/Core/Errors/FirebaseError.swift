@@ -4,18 +4,22 @@
 //
 //  Created by Muhammet Emre Kemancı on 3.05.2025.
 //
+import Firebase
 enum FirebaseError: Error {
     case unknown
     case configuration
     case tooManyRequests
-    case user(UserError)
-
-    var code: String {
-        switch self {
-        case .unknown: return "UNKNOWN"
-        case .configuration: return "CONFIGURATION"
-        case .tooManyRequests: return "TOO_MANY_REQUESTS"
-        case .user(let userError): return userError.code
+    
+    init(from error: Error){
+        let errorCode = FirebaseError(from: error)
+        
+        switch errorCode{
+        case .unknown:
+            self = .unknown
+        case .configuration:
+            self = .configuration
+        case .tooManyRequests:
+            self = .tooManyRequests
         }
     }
 
@@ -27,8 +31,6 @@ enum FirebaseError: Error {
             return "Firebase configuration is incorrect."
         case .tooManyRequests:
             return "Too many requests have been sent. Please wait."
-        case .user(let userError):
-            return userError.localizedDescription
         }
     }
 }
