@@ -93,6 +93,9 @@
     const params = new URLSearchParams(window.location.search);
     const oobCode = params.get("oobCode");
 
+    const uid = params.get("uid");
+
+
     const messageDiv = document.getElementById("message");
 
     if (oobCode) {
@@ -101,7 +104,8 @@
           messageDiv.innerHTML = `<p class="success">E-posta başarıyla doğrulandı!</p>`;
           // Uygulamaya yönlendirme (isteğe bağlı)
           setTimeout(() => {
-            window.location.href = "pigeonapp://verified";
+
+            window.location.href = `Pigeon://emailVerified?uid=${uid}`;
           }, 1500);
         })
         .catch((error) => {
