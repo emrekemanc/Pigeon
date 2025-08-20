@@ -71,7 +71,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         case .userNotFound:
             mailTextField.showError(message: error.localizedDescription)
         case .invalidCredential:
-            mailTextField.showError(message: error.localizedDescription)
+            mailTextField.shake()
             passwordTextField.showError(message: error.localizedDescription)
         default:
             showErrorPopup(message: error.localizedDescription)

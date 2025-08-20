@@ -17,16 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8P-lD-TXB">
-                                <rect key="frame" x="16.000000000000007" y="118" width="127.66666666666669" height="60"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                                <color key="textColor" name="pigeonDark"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h6c-JZ-Xv1" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
-                                <rect key="frame" x="15" y="278" width="363" height="60"/>
+                                <rect key="frame" x="50" y="300" width="293" height="50"/>
+                                <color key="tintColor" name="Dark"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="BZd-bW-mMB"/>
+                                    <constraint firstAttribute="height" constant="50" id="9If-XM-E0f"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
@@ -35,9 +30,10 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GZX-cN-wYw" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
-                                <rect key="frame" x="15" y="388" width="363" height="60"/>
+                                <rect key="frame" x="50" y="380" width="293" height="50"/>
+                                <color key="tintColor" name="Dark"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Mi8-Id-9tT"/>
+                                    <constraint firstAttribute="height" constant="50" id="Mm2-ak-mDf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
@@ -64,37 +60,54 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vQ-Ep-ERm" customClass="CustomButton" customModule="Pigeon" customModuleProvider="target">
-                                <rect key="frame" x="60" y="672" width="273" height="40"/>
+                                <rect key="frame" x="161.66666666666666" y="460" width="70" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="IMW-u0-G8m"/>
+                                    <constraint firstAttribute="height" constant="40" id="X9h-D1-XsX"/>
+                                    <constraint firstAttribute="width" constant="70" id="ejH-BE-VfA"/>
                                 </constraints>
-                                <color key="tintColor" name="pigeonDark"/>
+                                <color key="tintColor" name="Background"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Login"/>
                                 <connections>
                                     <action selector="loginButtonPress:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="hfy-xM-fVL"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DarkPigeon" translatesAutoresizingMaskIntoConstraints="NO" id="bap-G4-gSv">
+                                <rect key="frame" x="121.66666666666669" y="100" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Sup-y5-FHR"/>
+                                    <constraint firstAttribute="height" constant="150" id="T9l-5R-1r2"/>
+                                </constraints>
+                            </imageView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" title="Remember me" preferredStyle="sliding" translatesAutoresizingMaskIntoConstraints="NO" id="Mnf-eM-NH9">
+                                <rect key="frame" x="230" y="527" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" name="Dark"/>
+                                <color key="thumbTintColor" name="Secondary"/>
+                            </switch>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Remember me" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sHM-et-Px1">
+                                <rect key="frame" x="115" y="525" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="Dark"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="pigeonBackground"/>
                         <constraints>
-                            <constraint firstItem="8vQ-Ep-ERm" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BcA-nU-RV8"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="GZX-cN-wYw" secondAttribute="trailing" constant="15" id="D4A-iU-ANM"/>
-                            <constraint firstItem="v8P-lD-TXB" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leadingMargin" id="KMD-8K-2BK"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="h6c-JZ-Xv1" secondAttribute="trailing" constant="15" id="LcR-Ob-hip"/>
-                            <constraint firstItem="v8P-lD-TXB" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="ToB-A4-Nds"/>
-                            <constraint firstItem="8vQ-Ep-ERm" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="60" id="VfL-DO-7Yd"/>
-                            <constraint firstItem="GZX-cN-wYw" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="Wog-79-laZ"/>
-                            <constraint firstItem="fgb-AW-vNf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="afC-WB-BFi"/>
-                            <constraint firstItem="GZX-cN-wYw" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="b4t-c1-utf"/>
-                            <constraint firstItem="h6c-JZ-Xv1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="ghQ-vU-cER"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="8vQ-Ep-ERm" secondAttribute="trailing" constant="60" id="mC3-gS-oQ1"/>
-                            <constraint firstItem="h6c-JZ-Xv1" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="n9O-od-HFV"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="fgb-AW-vNf" secondAttribute="bottom" constant="20" id="oPw-FD-N7x"/>
-                            <constraint firstItem="h6c-JZ-Xv1" firstAttribute="top" secondItem="v8P-lD-TXB" secondAttribute="bottom" constant="100" id="rSi-GY-zXU"/>
-                            <constraint firstItem="GZX-cN-wYw" firstAttribute="top" secondItem="h6c-JZ-Xv1" secondAttribute="bottom" constant="50" id="thD-hg-ufa"/>
-                            <constraint firstItem="fgb-AW-vNf" firstAttribute="top" secondItem="8vQ-Ep-ERm" secondAttribute="bottom" constant="20" id="thm-qA-CRG"/>
+                            <constraint firstItem="8vQ-Ep-ERm" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="7zP-oy-GQa"/>
+                            <constraint firstItem="h6c-JZ-Xv1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="98B-q9-EfM"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="fgb-AW-vNf" secondAttribute="bottom" constant="20" id="JGH-4o-je3"/>
+                            <constraint firstItem="GZX-cN-wYw" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="R7G-KO-Nwm"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="GZX-cN-wYw" secondAttribute="trailing" constant="50" id="al5-VO-njP"/>
+                            <constraint firstItem="8vQ-Ep-ERm" firstAttribute="top" secondItem="GZX-cN-wYw" secondAttribute="bottom" constant="30" id="cqD-ve-38w"/>
+                            <constraint firstItem="bap-G4-gSv" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="cy7-Dn-0j9"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="h6c-JZ-Xv1" secondAttribute="trailing" constant="50" id="hbP-NQ-WzN"/>
+                            <constraint firstItem="bap-G4-gSv" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="100" id="huJ-QK-8tb"/>
+                            <constraint firstItem="fgb-AW-vNf" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="jNe-na-mG7"/>
+                            <constraint firstItem="GZX-cN-wYw" firstAttribute="top" secondItem="h6c-JZ-Xv1" secondAttribute="bottom" constant="30" id="tWZ-13-OSg"/>
+                            <constraint firstItem="h6c-JZ-Xv1" firstAttribute="top" secondItem="bap-G4-gSv" secondAttribute="bottom" constant="50" id="vse-ZH-vDp"/>
                         </constraints>
                     </view>
                     <connections>
@@ -123,6 +136,7 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Eqo-E8-hhM" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
                                 <rect key="frame" x="15" y="328" width="363" height="60"/>
+                                <color key="tintColor" name="Dark"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="31v-kT-xsT"/>
                                 </constraints>
@@ -131,6 +145,7 @@
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hkO-FI-WhD" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
                                 <rect key="frame" x="15" y="438" width="363" height="60"/>
+                                <color key="tintColor" name="Dark"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="PIp-fl-D4T"/>
                                 </constraints>
@@ -161,6 +176,7 @@
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Fullname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qLf-up-YnT" customClass="CustomTextField" customModule="Pigeon" customModuleProvider="target">
                                 <rect key="frame" x="15" y="218" width="363" height="60"/>
+                                <color key="tintColor" name="Dark"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="XiQ-xC-97M"/>
                                 </constraints>
@@ -242,6 +258,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="DarkPigeon" width="341.33334350585938" height="341.33334350585938"/>
+        <namedColor name="Background">
+            <color red="0.97647058823529409" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Dark">
+            <color red="0.066666666666666666" green="0.17647058823529413" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Secondary">
+            <color red="0.85882352941176465" green="0.88627450980392153" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="pigeonBackground">
             <color red="0.96862745098039216" green="0.97647058823529409" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

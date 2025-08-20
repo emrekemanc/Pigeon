@@ -10,18 +10,23 @@ import UIKit
 @IBDesignable
 class CustomButton: UIButton {
 
-    @IBInspectable var cornerRadius: CGFloat = 13.0
-    @IBInspectable var borderWidth: CGFloat = 0.7
-    @IBInspectable var borderColor: UIColor = .pigeonDark
-    @IBInspectable var normalBackgroundColor: UIColor = .pigeonBackground
-    @IBInspectable var highlightedBackgroundColor: UIColor = .pigeonDark
-    @IBInspectable var titleColor: UIColor = .pigeonDark
-
+    // MARK: - Özellikler
+    @IBInspectable var cornerRadius: CGFloat = 20
+    @IBInspectable var shadowOffsetY: CGFloat = 4
+    @IBInspectable var shadowOpacity: Float = 0.25
+    @IBInspectable var shadowRadius: CGFloat = 4
+    @IBInspectable var normalBackgroundColor: UIColor = .dark
+    @IBInspectable var highlightedBackgroundColor: UIColor = .dark.withAlphaComponent(0.6)
+    @IBInspectable var titleColors: UIColor = .secondary
+    
     private var originalTitle: String?
     private var originalTitleColor: UIColor?
     private var spinner: UIActivityIndicatorView?
+    
+    // İç gölge için layer
+    private var innerShadow: CAGradientLayer?
 
-
+    // MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
         setupAppearance()
@@ -35,19 +40,27 @@ class CustomButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         setupAppearance()
+        innerShadow?.frame = bounds
+        innerShadow?.cornerRadius = cornerRadius
     }
 
+    // MARK: - Görünüm
     private func setupAppearance() {
         layer.cornerRadius = cornerRadius
-        layer.borderWidth = borderWidth
-        layer.borderColor = borderColor.cgColor
-        clipsToBounds = true
-
-        setTitleColor(titleColor, for: .normal)
+        clipsToBounds = false
+        setTitleColor(titleColors, for: .normal)
         backgroundColor = isHighlighted ? highlightedBackgroundColor : normalBackgroundColor
+        applyOuterShadow()
     }
 
+    private func applyOuterShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowOffset = CGSize(width: 0, height: shadowOffsetY)
+        layer.shadowRadius = shadowRadius
+    }
 
+    // MARK: - Highlight Durumu
     override var isHighlighted: Bool {
         didSet {
             animatePressDown(isHighlighted)
@@ -59,8 +72,44 @@ class CustomButton: UIButton {
             self.backgroundColor = pressed ? self.highlightedBackgroundColor : self.normalBackgroundColor
             self.transform = pressed ? CGAffineTransform(scaleX: 0.97, y: 0.97) : .identity
         }, completion: nil)
+        
+        if pressed {
+            removeOuterShadow()
+            addInnerShadow()
+        } else {
+            removeInnerShadow()
+            applyOuterShadow()
+        }
     }
 
+    private func removeOuterShadow() {
+        layer.shadowOpacity = 0
+    }
+
+    // MARK: - İç Gölge
+    private func addInnerShadow() {
+        if innerShadow == nil {
+            let shadow = CAGradientLayer()
+            shadow.frame = bounds
+            shadow.colors = [
+                UIColor.black.withAlphaComponent(CGFloat(shadowOpacity)).cgColor,
+                UIColor.clear.cgColor
+            ]
+            shadow.startPoint = CGPoint(x: 0.5, y: 0.0)
+            shadow.endPoint   = CGPoint(x: 0.5, y: 0.25)
+            shadow.cornerRadius = cornerRadius
+            layer.addSublayer(shadow)
+            innerShadow = shadow
+        }
+        innerShadow?.opacity = 1
+    }
+
+    private func removeInnerShadow() {
+        innerShadow?.removeFromSuperlayer()
+        innerShadow = nil
+    }
+
+    // MARK: - Loading
     func showLoading(_ loading: Bool, disableWhileLoading: Bool = true) {
         if loading {
             if originalTitle == nil {
@@ -108,9 +157,12 @@ class CustomButton: UIButton {
         isEnabled = true
         transform = .identity
         backgroundColor = normalBackgroundColor
+        applyOuterShadow()
         originalTitle = nil
         originalTitleColor = nil
     }
+    
+    // MARK: - Shake
     func shake() {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: .linear)
