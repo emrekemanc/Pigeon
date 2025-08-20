@@ -257,6 +257,21 @@
                                     <constraint firstAttribute="width" constant="200" id="f6b-IC-B1S"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have sent  you a verification email.  Please verify your account." textAlignment="center" lineBreakMode="characterWrap" numberOfLines="3" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRx-hu-12W">
+                                <rect key="frame" x="10" y="388" width="373" height="89.666666666666686"/>
+                                <color key="tintColor" name="Dark"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please also check your spam box." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gO-c6-zyJ">
+                                <rect key="frame" x="68" y="485" width="257" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="Dark"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="l8X-h7-UKa"/>
                         <color key="backgroundColor" name="Background"/>
@@ -264,7 +279,10 @@
                             <constraint firstItem="aYc-8o-n6F" firstAttribute="top" secondItem="l8X-h7-UKa" secondAttribute="top" constant="50" id="LuH-8r-GJ8"/>
                             <constraint firstItem="aYc-8o-n6F" firstAttribute="centerX" secondItem="Hxw-4A-zsx" secondAttribute="centerX" id="QOT-3M-Rgs"/>
                             <constraint firstItem="KzY-dW-yHM" firstAttribute="centerX" secondItem="Hxw-4A-zsx" secondAttribute="centerX" id="bVC-FC-KkI"/>
+                            <constraint firstItem="nRx-hu-12W" firstAttribute="leading" secondItem="l8X-h7-UKa" secondAttribute="leading" constant="10" id="qZX-be-GKF"/>
                             <constraint firstItem="l8X-h7-UKa" firstAttribute="bottom" secondItem="KzY-dW-yHM" secondAttribute="bottom" constant="60" id="uOu-Vj-U3w"/>
+                            <constraint firstItem="l8X-h7-UKa" firstAttribute="trailing" secondItem="nRx-hu-12W" secondAttribute="trailing" constant="10" id="uyL-VX-nGj"/>
+                            <constraint firstItem="nRx-hu-12W" firstAttribute="top" secondItem="aYc-8o-n6F" secondAttribute="bottom" constant="20" id="yc4-A3-7fg"/>
                         </constraints>
                     </view>
                 </viewController>
